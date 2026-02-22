@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "meal-1",
+      "description": "Grilled chicken with rice and vegetables",
+      "imageUrl": "https://images.unsplash.com/photo-1687020835890-b0b8c6a04613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxncmlsbGVkJTIwY2hpY2tlbiUyMHJpY2V8ZW58MHx8fHwxNzcxNzg1OTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grilled chicken rice"
+    },
+    {
+      "id": "meal-2",
+      "description": "Salmon with sweet potatoes",
+      "imageUrl": "https://images.unsplash.com/photo-1739785938237-73b3654200d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2FsbW9uJTIwcG90YXRvfGVufDB8fHx8MTc3MTc4NTk1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "salmon potato"
+    },
+    {
+      "id": "meal-3",
+      "description": "Steak with broccoli",
+      "imageUrl": "https://images.unsplash.com/photo-1580391550743-4e3f17ef6f0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c3RlYWslMjBicm9jY29saXxlbnwwfHx8fDE3NzE3ODU5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "steak broccoli"
+    },
+    {
+      "id": "meal-4",
+      "description": "Chicken pasta",
+      "imageUrl": "https://images.unsplash.com/photo-1693820206774-d4a769355142?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaGlja2VuJTIwcGFzdGF8ZW58MHx8fHwxNzcxNzg1OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "chicken pasta"
+    },
+    {
+      "id": "meal-5",
+      "description": "Kofta with rice and salad",
+      "imageUrl": "https://images.unsplash.com/photo-1771285119318-b342c3ecc51c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxrb2Z0YSUyMHJpY2V8ZW58MHx8fHwxNzcxNzg1OTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kofta rice"
+    },
+    {
+      "id": "meal-6",
+      "description": "Garlic shrimp with quinoa",
+      "imageUrl": "https://images.unsplash.com/photo-1696855179901-b0536053608f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzaHJpbXAlMjBxdWlub2F8ZW58MHx8fHwxNzcxNzg1OTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "shrimp quinoa"
+    },
+    {
+      "id": "meal-7",
+      "description": "Greek yogurt with honey and berries",
+      "imageUrl": "https://images.unsplash.com/photo-1593198232414-72431a1cc506?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmVlayUyMHlvZ3VydHxlbnwwfHx8fDE3NzE3ODU5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "greek yogurt"
+    },
+    {
+      "id": "meal-8",
+      "description": "Protein pancakes",
+      "imageUrl": "https://images.unsplash.com/photo-1592162196531-61c6f89c5ebb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm90ZWluJTIwcGFuY2FrZXN8ZW58MHx8fHwxNzcxNzg1OTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "protein pancakes"
+    },
+    {
+      "id": "meal-9",
+      "description": "Healthy falafel",
+      "imageUrl": "https://images.unsplash.com/photo-1760888549074-5d885d859782?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoZWFsdGh5JTIwZmFsYWZlbHxlbnwwfHx8fDE3NzE3ODU5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "healthy falafel"
+    }
+  ]
 }
