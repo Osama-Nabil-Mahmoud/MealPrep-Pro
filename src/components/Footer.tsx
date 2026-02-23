@@ -15,9 +15,9 @@ export function Footer() {
           <div>
             <h4 className="font-bold mb-4">روابط سريعة</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#features">المميزات</Link></li>
-              <li><Link href="#pricing">الباقات</Link></li>
-              <li><Link href="#gallery">الوجبات</Link></li>
+              <li><Link href="/#features">المميزات</Link></li>
+              <li><Link href="/#pricing">الباقات</Link></li>
+              <li><Link href="/#gallery">الوجبات</Link></li>
             </ul>
           </div>
           <div>
@@ -41,8 +41,8 @@ export function Footer() {
                   <span>osamanabilmahmoud98@gmail.com</span>
                 </a>
               </li>
-              <li><Link href="#faq" className="hover:text-primary transition-colors">الأسئلة المتكررة</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">سياسة الخصوصية</Link></li>
+              <li><Link href="/#faq" className="hover:text-primary transition-colors">الأسئلة المتكررة</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors font-medium">سياسة الخصوصية</Link></li>
             </ul>
           </div>
           <div>
