@@ -131,7 +131,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:40g, C:10g, F:25g", 
     tag: "كيتو", 
     category: 'dinner',
-    pexelsQuery: "steak broccoli plate"
+    pexelsQuery: "steak broccoli plate",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1yy9owBZuoNm_Kt5Qdk2Px64Ruj6Iss5g"
   },
   { 
     id: 'd2', 
