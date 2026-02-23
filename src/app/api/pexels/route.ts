@@ -12,16 +12,18 @@ export async function GET(request: NextRequest) {
   }
 
   if (!PEXELS_API_KEY) {
-    return NextResponse.json({ error: 'Pexels API Key is missing' }, { status: 500 });
+    console.error('Pexels API Key is missing in environment variables');
+    return NextResponse.json({ error: 'Configuration error' }, { status: 500 });
   }
 
   try {
     const response = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=5&orientation=landscape`,
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=10&orientation=landscape`,
       {
         headers: {
           Authorization: PEXELS_API_KEY,
         },
+        next: { revalidate: 3600 } // Cache for 1 hour
       }
     );
 
@@ -35,7 +37,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No photos found' }, { status: 404 });
     }
 
-    // Pick the first high-quality photo
+    // Pick the most relevant high-quality photo (usually the first one from Pexels)
     const photo = data.photos[0];
     
     return NextResponse.json({

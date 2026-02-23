@@ -22,7 +22,7 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:25g, C:35g, F:8g", 
     tag: "طاقة", 
     category: 'breakfast',
-    pexelsQuery: "protein pancakes blueberies stack"
+    pexelsQuery: "protein pancakes stack blueberies berries"
   },
   { 
     id: 'b2', 
@@ -32,17 +32,17 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:12g, C:50g, F:10g", 
     tag: "ألياف عالية", 
     category: 'breakfast',
-    pexelsQuery: "oatmeal bowl berries nuts healthy"
+    pexelsQuery: "oatmeal bowl berries nuts healthy breakfast"
   },
   { 
     id: 'b3', 
-    nameAr: "فول وطعمية صحية", 
+    nameAr: "فول وطعمية (صحية!)", 
     slug: "ful-falafel-healthy",
     calories: 380, 
     macros: "P:18g, C:45g, F:12g", 
     tag: "شعبي مطور", 
     category: 'breakfast',
-    pexelsQuery: "falafel fava beans plate oriental"
+    pexelsQuery: "fava beans bowl falafel healthy oriental breakfast"
   },
 
   // غداء (Lunch)
@@ -54,7 +54,7 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:35g, C:40g, F:15g", 
     tag: "متوازن", 
     category: 'lunch',
-    pexelsQuery: "grilled chicken rice broccoli meal"
+    pexelsQuery: "grilled chicken rice vegetables meal prep"
   },
   { 
     id: 'l2', 
@@ -64,49 +64,49 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:30g, C:45g, F:20g", 
     tag: "أوميجا 3", 
     category: 'lunch',
-    pexelsQuery: "grilled salmon steak sweet potato"
+    pexelsQuery: "grilled salmon sweet potato healthy meal"
   },
   { 
     id: 'l3', 
-    nameAr: "كفتة مشوية مع أرز بسمتي", 
+    nameAr: "كفتة مع أرز وسلطة", 
     slug: "kofta-rice",
     calories: 420, 
     macros: "P:35g, C:30g, F:18g", 
     tag: "بروتين عالي", 
     category: 'lunch',
-    pexelsQuery: "kofta kebab basmati rice"
+    pexelsQuery: "kofta rice healthy oriental meal"
   },
 
   // عشاء (Dinner)
   { 
     id: 'd1', 
-    nameAr: "ستيك لحم مع بروكلي", 
+    nameAr: "ستيك مع بروكلي", 
     slug: "steak-broccoli",
     calories: 480, 
     macros: "P:40g, C:10g, F:25g", 
-    tag: "كيتو فريندلي", 
+    tag: "كيتو", 
     category: 'dinner',
-    pexelsQuery: "beef steak grilled broccoli healthy"
+    pexelsQuery: "steak broccoli meal prep healthy"
   },
   { 
     id: 'd2', 
-    nameAr: "باستا الدجاج بالكريمة الخفيفة", 
+    nameAr: "باستا بالدجاج", 
     slug: "chicken-pasta",
     calories: 550, 
     macros: "P:30g, C:60g, F:10g", 
     tag: "قبل التمرين", 
     category: 'dinner',
-    pexelsQuery: "chicken alfredo pasta penne"
+    pexelsQuery: "chicken pasta healthy meal prep"
   },
   { 
     id: 'd3', 
-    nameAr: "سمك فيليه مشوي مع خضار سوتيه", 
+    nameAr: "سمك فيليه مع خضار على البخار", 
     slug: "fish-fillet-steamed-veg",
     calories: 310, 
     macros: "P:30g, C:5g, F:12g", 
     tag: "عشاء خفيف", 
     category: 'dinner',
-    pexelsQuery: "steamed fish fillet vegetables"
+    pexelsQuery: "fish fillet steamed vegetables healthy"
   },
 
   // سناكس (Snacks)
@@ -118,7 +118,7 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:28g, C:40g, F:12g", 
     tag: "سوبر فود", 
     category: 'snack',
-    pexelsQuery: "garlic shrimp quinoa salad"
+    pexelsQuery: "garlic shrimp quinoa healthy meal"
   },
   { 
     id: 's2', 
@@ -128,16 +128,16 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:15g, C:25g, F:5g", 
     tag: "سناك بروتين", 
     category: 'snack',
-    pexelsQuery: "greek yogurt bowl berries honey"
+    pexelsQuery: "greek yogurt honey berries bowl"
   },
   { 
     id: 's3', 
-    nameAr: "حمص بالطحينة مع خضروات", 
+    nameAr: "حمص بالطحينة وخضار", 
     slug: "hummus-tahini-veggies",
     calories: 300, 
     macros: "P:10g, C:45g, F:8g", 
     tag: "نباتي", 
     category: 'snack',
-    pexelsQuery: "hummus plate chickpeas olive oil"
+    pexelsQuery: "hummus tahini vegetables plate healthy"
   },
 ];
