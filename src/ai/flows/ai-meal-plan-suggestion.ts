@@ -35,8 +35,8 @@ const suggestMealPlanFlow = ai.defineFlow(
   },
   async (input) => {
     try {
+      // Use the default model from genkit.ts for better compatibility
       const { output } = await ai.generate({
-        // Using the default model defined in genkit.ts
         prompt: `أنت خبير تغذية لدى "MealPrep Pro".
 الهدف الغذائي للمستخدم هو: ${input.dietaryGoal}
 
@@ -48,7 +48,7 @@ ${input.availableMeals.map(m => `- ${m.title} (${m.calories} سعرة, ${m.macro
       });
 
       if (!output) {
-        throw new Error('لم يتم توليد اقتراح.');
+        throw new Error('لم يتمكن الذكاء الاصطناعي من توليد اقتراح. يرجى المحاولة مرة أخرى.');
       }
 
       return output;
@@ -64,6 +64,10 @@ export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise
     return await suggestMealPlanFlow(input);
   } catch (error: any) {
     console.error('Flow Execution Error:', error);
+    // Provide a clearer error message for missing API key
+    if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('403') || error.message?.includes('401')) {
+      throw new Error('مفتاح الذكاء الاصطناعي غير صحيح أو غير مفعل. يرجى التأكد من إعدادات GOOGLE_GENAI_API_KEY.');
+    }
     throw new Error(error.message || 'فشل المساعد الذكي في الاستجابة حالياً.');
   }
 }

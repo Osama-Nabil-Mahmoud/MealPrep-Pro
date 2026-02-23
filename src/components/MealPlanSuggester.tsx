@@ -49,14 +49,14 @@ export function MealPlanSuggester() {
       if (result && result.suggestedMealPlan) {
         setSuggestion(result.suggestedMealPlan)
       } else {
-        throw new Error("لم يتم تلقي بيانات صحيحة من الذكاء الاصطناعي")
+        throw new Error("لم يتم تلقي بيانات صحيحة")
       }
     } catch (error: any) {
       console.error('UI Error:', error)
       toast({
         variant: "destructive",
         title: "عذراً، حدث خطأ",
-        description: error.message || "فشل الذكاء الاصطناعي في إنشاء خطة حالياً. حاول مرة أخرى.",
+        description: error.message || "فشل النظام في إنشاء الخطة. يرجى التحقق من إعدادات الذكاء الاصطناعي.",
       })
     } finally {
       setLoading(false)
@@ -71,7 +71,7 @@ export function MealPlanSuggester() {
       </div>
       
       <p className="mb-6 text-sm text-muted-foreground">
-        اختار هدفك وسيب الذكاء الاصطناعي ينسق لك منيو من الـ 20 وجبة المتاحة عندنا.
+        اختار هدفك وسيب الذكاء الاصطناعي ينسق لك منيو مخصص من وجباتنا الـ 20.
       </p>
 
       <div className="flex flex-wrap gap-2 mb-8">
@@ -100,7 +100,7 @@ export function MealPlanSuggester() {
         {loading ? (
           <>
             <Loader2 className="animate-spin mr-2 h-4 w-4" />
-            جاري التحليل والاقتراح...
+            جاري التحليل...
           </>
         ) : (
           "اقترح لي خطة وجبات"
@@ -109,7 +109,7 @@ export function MealPlanSuggester() {
 
       {suggestion && (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك بناءً على أهدافك:</p>
+          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك:</p>
           {suggestion.map((meal, i) => (
             <Card key={i} className="p-4 flex justify-between items-center bg-background border-primary/10 hover:border-primary/30 transition-colors">
               <div className="flex items-center gap-3">
@@ -127,7 +127,7 @@ export function MealPlanSuggester() {
 
       {!loading && !suggestion && (
         <div className="text-center py-4 text-xs text-muted-foreground">
-          اضغط على الزر للحصول على اقتراحات مخصصة.
+          اضغط للحصول على اقتراحات مخصصة.
         </div>
       )}
     </div>
