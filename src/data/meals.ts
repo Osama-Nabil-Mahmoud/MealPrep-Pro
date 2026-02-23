@@ -152,7 +152,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:32g, C:42g, F:14g", 
     tag: "بهارات هندية", 
     category: 'dinner',
-    pexelsQuery: "chicken curry brown rice"
+    pexelsQuery: "chicken curry brown rice",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1d4IpXdlZP3fkBLXamHH-GFJuL6VlBJgV"
   },
   { 
     id: 'd4', 
