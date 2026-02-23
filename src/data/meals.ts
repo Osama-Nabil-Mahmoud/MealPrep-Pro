@@ -33,7 +33,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:20g, C:5g, F:18g", 
     tag: "بروتين", 
     category: 'breakfast',
-    pexelsQuery: "veggie omelette plate"
+    pexelsQuery: "veggie omelette plate",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1n04h5YIOLcQRtUZPQtgWDuZzi41Qc7KJ"
   },
   { 
     id: 'b3', 
