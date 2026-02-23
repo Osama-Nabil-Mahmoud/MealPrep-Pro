@@ -178,7 +178,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:1g, C:25g, F:0g", 
     tag: "فيتامينات", 
     category: 'snack',
-    pexelsQuery: "fruit salad bowl"
+    pexelsQuery: "fruit salad bowl",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1aliXlTGMBhkQ8pxAWA4OQhq2hR_KOJ8j"
   },
   { 
     id: 's3', 
