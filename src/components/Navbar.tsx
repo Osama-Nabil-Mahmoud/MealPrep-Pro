@@ -15,6 +15,7 @@ export function Navbar({ onTrialClick }: { onTrialClick: () => void }) {
     { name: "الوجبات", href: "#gallery" },
     { name: "قصص نجاح", href: "#testimonials" },
     { name: "الأسئلة", href: "#faq" },
+    { name: "تواصل معنا", href: "#contact" },
   ]
 
   return (
