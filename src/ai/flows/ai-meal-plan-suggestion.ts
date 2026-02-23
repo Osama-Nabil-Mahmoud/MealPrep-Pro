@@ -29,7 +29,12 @@ const AiMealPlanSuggestionOutputSchema = z.object({
 export type AiMealPlanSuggestionOutput = z.infer<typeof AiMealPlanSuggestionOutputSchema>;
 
 export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise<AiMealPlanSuggestionOutput> {
-  return aiMealPlanSuggestionFlow(input);
+  try {
+    return await aiMealPlanSuggestionFlow(input);
+  } catch (error) {
+    console.error('Genkit Flow Error:', error);
+    throw new Error('فشل الذكاء الاصطناعي في معالجة طلبك. يرجى التأكد من إعدادات الاتصال.');
+  }
 }
 
 const mealPlanPrompt = ai.definePrompt({
