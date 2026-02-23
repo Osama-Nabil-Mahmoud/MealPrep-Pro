@@ -1,50 +1,50 @@
 'use server';
 /**
- * @fileOverview نظام ذكاء اصطناعي لاقتراح الوجبات بناءً على الأهداف الغذائية.
- * يستخدم هذا الملف Genkit 1.x API الرسمي.
+ * @fileOverview AI system to suggest meal plans based on dietary goals.
+ * Uses the official Genkit 1.x API.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const MealSchema = z.object({
-  title: z.string().describe('اسم الوجبة باللغة العربية.'),
-  calories: z.number().describe('عدد السعرات الحرارية التقريبي.'),
-  macros: z.string().describe('توزيع الماكروز (بروتين، كارب، دهون).'),
-  tag: z.string().describe('تصنيف الوجبة.'),
+  title: z.string().describe('The name of the meal in Arabic.'),
+  calories: z.number().describe('Approximate number of calories.'),
+  macros: z.string().describe('Macros distribution (Protein, Carbs, Fats).'),
+  tag: z.string().describe('Meal category/tag.'),
 });
 
 const AiMealPlanSuggestionInputSchema = z.object({
-  dietaryGoal: z.string().describe('الهدف الغذائي للمستخدم (خسارة وزن، بناء عضل، إلخ).'),
-  availableMeals: z.array(MealSchema).describe('قائمة الوجبات المتاحة للاختيار منها.'),
+  dietaryGoal: z.string().describe('The user’s dietary goal (weight loss, muscle gain, etc.).'),
+  availableMeals: z.array(MealSchema).describe('List of available meals to choose from.'),
 });
 export type AiMealPlanSuggestionInput = z.infer<typeof AiMealPlanSuggestionInputSchema>;
 
 const AiMealPlanSuggestionOutputSchema = z.object({
-  suggestedMealPlan: z.array(MealSchema).min(3).max(5).describe('خطة مقترحة من 3 إلى 5 وجبات من القائمة المتاحة فقط.'),
+  suggestedMealPlan: z.array(MealSchema).min(3).max(5).describe('A suggested plan of 3 to 5 meals from the available list only.'),
 });
 export type AiMealPlanSuggestionOutput = z.infer<typeof AiMealPlanSuggestionOutputSchema>;
 
 /**
- * تعريف البرومبت باستخدام Genkit 1.x
+ * Defining the Prompt using Genkit 1.x
  */
 const suggestMealPlanPrompt = ai.definePrompt({
   name: 'suggestMealPlanPrompt',
   input: { schema: AiMealPlanSuggestionInputSchema },
   output: { schema: AiMealPlanSuggestionOutputSchema },
-  prompt: `أنت خبير تغذية متخصص في شركة "MealPrep Pro".
-هدفك هو اختيار أفضل الوجبات من القائمة المتاحة لتناسب هدف المستخدم: "{{{dietaryGoal}}}".
+  prompt: `You are an expert nutritionist at "MealPrep Pro".
+Your goal is to select the best meals from the available list to fit the user's goal: "{{{dietaryGoal}}}".
 
-قائمة الوجبات المتاحة (يجب أن تختار من هذه القائمة فقط):
+Available meals list (You MUST choose from this list only):
 {{#each availableMeals}}
-- {{{title}}} ({{{calories}}} سعرة، {{{macros}}})
+- {{{title}}} ({{{calories}}} cal, {{{macros}}})
 {{/each}}
 
-المطلوب: اختر من 3 إلى 5 وجبات متنوعة تناسب هدف المستخدم تماماً.`,
+Task: Choose 3 to 5 diverse meals that perfectly fit the user's goal. Respond in Arabic for titles and labels.`,
 });
 
 /**
- * تعريف الـ Flow
+ * Defining the Flow
  */
 const suggestMealPlanFlow = ai.defineFlow(
   {
@@ -53,8 +53,8 @@ const suggestMealPlanFlow = ai.defineFlow(
     outputSchema: AiMealPlanSuggestionOutputSchema,
   },
   async (input) => {
-    // التحقق من مفتاح الـ API في البيئة
-    if (!process.env.GOOGLE_GENAI_API_KEY) {
+    // Check for the API key in the environment
+    if (!process.env.GOOGLE_GENAI_API_KEY && !process.env.GEMINI_API_KEY) {
       throw new Error('API_KEY_MISSING');
     }
 
@@ -70,7 +70,7 @@ const suggestMealPlanFlow = ai.defineFlow(
 );
 
 /**
- * دالة التصدير للواجهة الأمامية
+ * Export function for the frontend
  */
 export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise<AiMealPlanSuggestionOutput> {
   try {

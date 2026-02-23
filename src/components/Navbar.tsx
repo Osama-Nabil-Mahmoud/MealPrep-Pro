@@ -12,6 +12,7 @@ export function Navbar({ onTrialClick }: { onTrialClick: () => void }) {
   const navLinks = [
     { name: "المميزات", href: "#features" },
     { name: "الباقات", href: "#pricing" },
+    { name: "مساعد الوجبات (AI)", href: "#ai-suggester" },
     { name: "الوجبات", href: "#gallery" },
     { name: "قصص نجاح", href: "#testimonials" },
     { name: "الأسئلة", href: "#faq" },
