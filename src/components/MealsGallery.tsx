@@ -11,10 +11,12 @@ function MealCard({ meal }: { meal: Meal }) {
   const [imgSrc, setImgSrc] = React.useState(meal.imagePath)
   const [hasError, setHasError] = React.useState(false)
 
+  // دالة للتعامل مع الصور المفقودة
   const handleError = () => {
     if (!hasError) {
       console.warn(`⚠️ صورة غير موجودة للوجبة: ${meal.nameAr} -> ${meal.imagePath}`)
-      setImgSrc('/meals/placeholder.jpg')
+      // استبدال بـ Placeholder من Picsum كحل مؤقت لحين رفع الصور الحقيقية
+      setImgSrc(`https://picsum.photos/seed/${meal.slug}/600/400`)
       setHasError(true)
     }
   }
@@ -29,6 +31,7 @@ function MealCard({ meal }: { meal: Meal }) {
           className="object-cover group-hover:scale-110 transition-transform duration-700"
           onError={handleError}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          data-ai-hint={meal.slug.replace(/-/g, ' ')}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
         <Badge className="absolute top-4 right-4 bg-white/95 text-black hover:bg-white border-none shadow-sm font-bold">
