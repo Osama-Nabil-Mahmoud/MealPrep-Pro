@@ -33,70 +33,64 @@ export function Pricing({ onSubscribeClick }: { onSubscribeClick: (plan: string)
       target: "بناء عضلات ورياضيين",
       calories: "2500+ سعرة",
       highlight: false
-    },
-    {
-      name: "Keto",
-      price: "1699",
-      desc: "حرق دهون سريع",
-      included: "25 وجبة (كيتو كلاسيك)",
-      target: "نظام 70/25/5 ماكروز",
-      calories: "1400-1800 سعرة",
-      highlight: false
-    },
-    {
-      name: "Vegan",
-      price: "1299",
-      desc: "نباتي 100%",
-      included: "20 وجبة نباتية",
-      target: "تغذية نباتية متكاملة",
-      calories: "1300-1600 سعرة",
-      highlight: false
     }
   ]
 
   return (
-    <section id="pricing" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-headline mb-4">اختر الباقة المناسبة لهدفك</h2>
-          <Badge variant="outline" className="mb-4">سعر التجربة لفترة محدودة</Badge>
+    <section id="pricing" className="py-16 md:py-24 bg-muted/20">
+      <div className="container">
+        <div className="text-center mb-12 md:mb-16">
+          <Badge variant="outline" className="mb-4 text-primary border-primary">سعر التجربة لفترة محدودة</Badge>
+          <h2 className="text-3xl md:text-4xl font-headline mb-4">اختر الباقة المناسبة لهدفك</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto px-4 text-sm md:text-base">استمتع بوجبات صحية توصلك طازة يومياً، مع إمكانية التعديل في أي وقت.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-5xl mx-auto items-stretch">
           {plans.map((plan, i) => (
             <div 
               key={i} 
-              className={`relative bg-card border rounded-2xl p-6 flex flex-col transition-all hover:scale-[1.02] ${
-                plan.highlight ? 'ring-2 ring-primary shadow-xl scale-105 z-10' : ''
+              className={`relative bg-card border rounded-[2rem] p-8 flex flex-col transition-all duration-300 hover:translate-y-[-5px] ${
+                plan.highlight ? 'ring-2 ring-primary shadow-2xl scale-100 md:scale-105 z-10' : 'shadow-sm'
               }`}
             >
               {plan.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                  <Star className="w-3 h-3 fill-current" /> الأكثر طلباً
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                  <Star className="w-3 h-3 fill-current" /> الموصى به
                 </div>
               )}
-              <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{plan.desc}</p>
               
-              <div className="mb-6">
-                <span className="text-3xl font-bold text-primary">{plan.price} ج</span>
-                <span className="text-muted-foreground text-sm"> /أسبوع</span>
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-1">{plan.name}</h3>
+                <p className="text-sm text-muted-foreground">{plan.desc}</p>
+              </div>
+              
+              <div className="mb-8">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold text-primary">{plan.price} ج</span>
+                  <span className="text-muted-foreground text-sm"> /أسبوع</span>
+                </div>
                 {plan.oldPrice && (
-                  <p className="text-xs text-muted-foreground line-through">{plan.oldPrice} ج</p>
+                  <p className="text-xs text-muted-foreground line-through mt-1 opacity-70">{plan.oldPrice} ج</p>
                 )}
               </div>
 
-              <div className="space-y-4 mb-8 flex-1">
-                <div className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+              <div className="space-y-4 mb-10 flex-1">
+                <div className="flex items-start gap-3 text-sm md:text-base leading-snug">
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 text-primary" />
+                  </div>
                   <span>{plan.included}</span>
                 </div>
-                <div className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 text-sm md:text-base leading-snug">
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 text-primary" />
+                  </div>
                   <span>{plan.target}</span>
                 </div>
-                <div className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 text-sm md:text-base leading-snug">
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 text-primary" />
+                  </div>
                   <span>{plan.calories}</span>
                 </div>
               </div>
@@ -104,7 +98,7 @@ export function Pricing({ onSubscribeClick }: { onSubscribeClick: (plan: string)
               <Button 
                 onClick={() => onSubscribeClick(plan.name)}
                 variant={plan.highlight ? 'default' : 'outline'} 
-                className="w-full font-bold"
+                className={`w-full font-bold h-12 text-lg rounded-xl ${plan.highlight ? 'shadow-lg hover:shadow-xl' : ''}`}
               >
                 اختر هذه الباقة
               </Button>
@@ -112,12 +106,14 @@ export function Pricing({ onSubscribeClick }: { onSubscribeClick: (plan: string)
           ))}
         </div>
 
-        <div className="mt-12 bg-muted/50 p-6 rounded-2xl text-center max-w-2xl mx-auto">
-          <p className="font-bold mb-4">كل الباقات تشمل:</p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <span className="bg-background px-3 py-1 rounded-full border">توصيل مجاني</span>
-            <span className="bg-background px-3 py-1 rounded-full border">إيقاف/إلغاء أي وقت</span>
-            <span className="bg-background px-3 py-1 rounded-full border">ضمان استرجاع 7 أيام</span>
+        <div className="mt-16 bg-card border shadow-sm p-6 md:p-10 rounded-[2.5rem] text-center max-w-3xl mx-auto">
+          <p className="font-bold text-lg mb-6">كل الباقات تشمل هذه الميزات القياسية:</p>
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {["توصيل مجاني يومياً", "إيقاف/إلغاء في أي وقت", "ضمان استرجاع 7 أيام", "تخصيص كامل للمنيو"].map((item, i) => (
+              <span key={i} className="bg-muted px-4 py-2 rounded-full border text-sm md:text-base font-medium">
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </div>

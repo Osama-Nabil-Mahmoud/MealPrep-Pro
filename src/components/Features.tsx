@@ -45,23 +45,23 @@ export function Features() {
   ]
 
   return (
-    <section id="features" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-headline mb-4">السر مش في الدايت… السر في الاستمرارية</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            إحنا بنوفرلك كل الأدوات اللي تخليك تلتزم بنظامك الصحي من غير ما تحس بمجهود.
+    <section id="features" className="py-16 md:py-24 bg-muted/30">
+      <div className="container">
+        <div className="text-center mb-12 md:mb-20 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-headline mb-4 md:mb-6">السر مش في الدايت… السر في الاستمرارية</h2>
+          <p className="text-muted-foreground text-sm md:text-lg leading-relaxed px-4">
+            إحنا بنوفرلك كل الأدوات اللي تخليك تلتزم بنظامك الصحي من غير ما تحس بمجهود أو ملل.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {features.map((f, i) => (
-            <div key={i} className="bg-card p-6 rounded-2xl border hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-primary">
-                <f.icon className="w-6 h-6" />
+            <div key={i} className="bg-card p-6 md:p-8 rounded-3xl border hover:shadow-xl transition-all duration-300 group">
+              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                <f.icon className="w-7 h-7" />
               </div>
-              <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground">{f.desc}</p>
+              <h3 className="font-bold text-lg md:text-xl mb-3">{f.title}</h3>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>

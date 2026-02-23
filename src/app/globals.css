@@ -51,13 +51,19 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden selection:bg-primary/20;
+    line-height: 1.6;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-headline font-bold tracking-tight;
+    @apply font-headline font-bold tracking-tight leading-[1.2];
   }
 }
 
 .rtl-flip {
   transform: scaleX(-1);
+}
+
+/* Prevent horizontal scroll on small devices */
+.container {
+  @apply px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
 }
