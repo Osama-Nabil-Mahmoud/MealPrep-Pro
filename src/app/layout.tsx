@@ -1,11 +1,17 @@
-import type {Metadata} from 'next';
+import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'MealPrep Pro | وجبات صحية جاهزة توصل لك يومياً',
   description: 'اشترك في MealPrep Pro واحصل على وجبات صحية محسوبة الماكروز، مطبوخة طازة وبتوصل لك كل يوم لحد باب البيت أو المكتب في مصر.',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({
