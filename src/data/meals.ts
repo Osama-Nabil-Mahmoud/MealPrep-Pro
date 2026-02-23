@@ -142,7 +142,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:28g, C:40g, F:12g", 
     tag: "سوبر فود", 
     category: 'dinner',
-    pexelsQuery: "garlic shrimp quinoa"
+    pexelsQuery: "garlic shrimp quinoa",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1jcfMgU9qL_c-J4Nd-tdMo76fwFOPvmf0"
   },
   { 
     id: 'd3', 
