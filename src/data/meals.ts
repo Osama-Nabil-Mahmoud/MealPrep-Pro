@@ -44,7 +44,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:25g, C:35g, F:8g", 
     tag: "طاقة", 
     category: 'breakfast',
-    pexelsQuery: "protein pancakes stack"
+    pexelsQuery: "protein pancakes stack",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1BogWaxCS4VMNueW8_ig3Dp0yrX93NGB3"
   },
   { 
     id: 'b4', 
