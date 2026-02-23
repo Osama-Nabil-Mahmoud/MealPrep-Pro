@@ -90,7 +90,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:30g, C:45g, F:20g", 
     tag: "أوميجا 3", 
     category: 'lunch',
-    pexelsQuery: "grilled salmon sweet potato"
+    pexelsQuery: "grilled salmon sweet potato",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1aJoA1KC8KOp4DCuq7mXpWVcU46CWpYPe"
   },
   { 
     id: 'l3', 
