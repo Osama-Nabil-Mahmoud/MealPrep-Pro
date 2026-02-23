@@ -1,0 +1,59 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "meal-1",
+      "description": "Grilled chicken with rice and vegetables",
+      "imageUrl": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "grilled chicken rice"
+    },
+    {
+      "id": "meal-2",
+      "description": "Salmon with sweet potatoes",
+      "imageUrl": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "salmon sweet potato"
+    },
+    {
+      "id": "meal-3",
+      "description": "Steak with broccoli",
+      "imageUrl": "https://images.unsplash.com/photo-1606416131584-8813d9696c5c?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "steak broccoli"
+    },
+    {
+      "id": "meal-4",
+      "description": "Creamy Chicken Alfredo Pasta",
+      "imageUrl": "https://images.unsplash.com/photo-1645112481338-3562e9998811?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "chicken pasta alfredo"
+    },
+    {
+      "id": "meal-5",
+      "description": "Kofta with rice and salad",
+      "imageUrl": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "kofta kebab"
+    },
+    {
+      "id": "meal-6",
+      "description": "Garlic shrimp with quinoa",
+      "imageUrl": "https://images.unsplash.com/photo-1551248429-40975aa4de74?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "shrimp quinoa"
+    },
+    {
+      "id": "meal-7",
+      "description": "Greek yogurt with honey and berries",
+      "imageUrl": "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "greek yogurt bowl"
+    },
+    {
+      "id": "meal-8",
+      "description": "Protein pancakes",
+      "imageUrl": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "pancakes berries"
+    },
+    {
+      "id": "meal-9",
+      "description": "Healthy falafel and beans",
+      "imageUrl": "https://images.unsplash.com/photo-1593001874117-c99c4ed26273?q=80&w=1000&auto=format&fit=crop",
+      "imageHint": "falafel plate"
+    }
+  ]
+}
