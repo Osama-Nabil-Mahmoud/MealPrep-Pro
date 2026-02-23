@@ -45,13 +45,14 @@ export function MealPlanSuggester() {
         dietaryGoal: goal,
         availableMeals: availableMealsData
       })
+      
       if (result && result.suggestedMealPlan) {
         setSuggestion(result.suggestedMealPlan)
       } else {
         throw new Error("لم يتم تلقي بيانات صحيحة من الذكاء الاصطناعي")
       }
     } catch (error: any) {
-      console.error(error)
+      console.error('UI Error:', error)
       toast({
         variant: "destructive",
         title: "عذراً، حدث خطأ",

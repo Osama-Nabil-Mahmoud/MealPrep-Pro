@@ -1,10 +1,6 @@
 'use server';
 /**
  * @fileOverview An AI agent that suggests meal plans based on dietary goals.
- *
- * - suggestMealPlan - A function that handles the meal plan suggestion process.
- * - AiMealPlanSuggestionInput - The input type for the suggestMealPlan function.
- * - AiMealPlanSuggestionOutput - The return type for the suggestMealPlan function.
  */
 
 import {ai} from '@/ai/genkit';
@@ -18,8 +14,8 @@ const MealSchema = z.object({
 });
 
 const AiMealPlanSuggestionInputSchema = z.object({
-  dietaryGoal: z.string().describe('The user\'s dietary goal (e.g., "weight loss", "muscle gain", "keto", "vegan", "healthy eating").'),
-  availableMeals: z.array(MealSchema).describe('An array of available meals from the gallery.'),
+  dietaryGoal: z.string().describe('The user\'s dietary goal.'),
+  availableMeals: z.array(MealSchema).describe('An array of available meals.'),
 });
 export type AiMealPlanSuggestionInput = z.infer<typeof AiMealPlanSuggestionInputSchema>;
 
@@ -28,44 +24,43 @@ const AiMealPlanSuggestionOutputSchema = z.object({
 });
 export type AiMealPlanSuggestionOutput = z.infer<typeof AiMealPlanSuggestionOutputSchema>;
 
-const mealPlanPrompt = ai.definePrompt({
-  name: 'mealPlanSuggestionPrompt',
-  input: {schema: AiMealPlanSuggestionInputSchema},
-  output: {schema: AiMealPlanSuggestionOutputSchema},
-  prompt: `أنت خبير تغذية ومخطط وجبات لدى "MealPrep Pro". مهمتك هي اقتراح خطة وجبات مناسبة لمستخدم جديد بناءً على هدفه الغذائي وقائمة الوجبات المتاحة لدينا.
+/**
+ * AI Meal Plan Suggestion Flow
+ */
+const suggestMealPlanFlow = ai.defineFlow(
+  {
+    name: 'suggestMealPlanFlow',
+    inputSchema: AiMealPlanSuggestionInputSchema,
+    outputSchema: AiMealPlanSuggestionOutputSchema,
+  },
+  async (input) => {
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-1.5-flash',
+      prompt: `أنت خبير تغذية ومخطط وجبات لدى "MealPrep Pro". مهمتك هي اقتراح خطة وجبات مناسبة لمستخدم جديد بناءً على هدفه الغذائي وقائمة الوجبات المتاحة لدينا.
 
-الهدف الغذائي للمستخدم هو: {{{dietaryGoal}}}
+الهدف الغذائي للمستخدم هو: ${input.dietaryGoal}
 
 قائمة الوجبات المتاحة لدينا:
-{{#each availableMeals}}
-- الوجبة: {{{title}}}, السعرات: {{calories}}, الماكروز: {{{macros}}}, التصنيف: {{{tag}}}
-{{/each}}
+${input.availableMeals.map(m => `- الوجبة: ${m.title}, السعرات: ${m.calories}, الماكروز: ${m.macros}, التصنيف: ${m.tag}`).join('\n')}
 
 يرجى اختيار من 3 إلى 5 وجبات من القائمة أعلاه تتوافق بشكل أفضل مع هدف المستخدم. 
-يجب أن تختار فقط من الوجبات المذكورة ولا تقم بابتكار وجبات جديدة.
-يجب أن يكون الرد بصيغة JSON تحتوي على مصفوفة الوجبات المختارة بنفس الهيكل الموضح.`,
-});
+يجب أن تختار فقط من الوجبات المذكورة ولا تقم بابتكار وجبات جديدة.`,
+      output: { schema: AiMealPlanSuggestionOutputSchema },
+    });
+
+    if (!output) {
+      throw new Error('لم يتمكن الذكاء الاصطناعي من توليد اقتراح. يرجى المحاولة مرة أخرى.');
+    }
+
+    return output;
+  }
+);
 
 export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise<AiMealPlanSuggestionOutput> {
   try {
-    // التحقق من وجود مفتاح الـ API لتقديم رسالة خطأ واضحة في الـ Logs
-    if (!process.env.GOOGLE_GENAI_API_KEY && !process.env.GEMINI_API_KEY) {
-      throw new Error('مفتاح API الخاص بجوجل (GOOGLE_GENAI_API_KEY) غير مضاف في إعدادات البيئة.');
-    }
-
-    const {output} = await mealPlanPrompt(input);
-    
-    if (!output) {
-      throw new Error('لم يقم الذكاء الاصطناعي بإنشاء أي بيانات. يرجى المحاولة مرة أخرى.');
-    }
-    
-    return output;
+    return await suggestMealPlanFlow(input);
   } catch (error: any) {
-    console.error('Genkit Flow Error Detail:', error);
-    
-    // محاولة استخراج رسالة خطأ مفهومة
-    const errorMessage = error.message || 'حدث خطأ غير متوقع في الاتصال بمحرك الذكاء الاصطناعي';
-    
-    throw new Error(`عذراً، المساعد الذكي واجه مشكلة: ${errorMessage}`);
+    console.error('Genkit Error:', error);
+    throw new Error(error.message || 'حدث خطأ في الاتصال بمحرك الذكاء الاصطناعي.');
   }
 }
