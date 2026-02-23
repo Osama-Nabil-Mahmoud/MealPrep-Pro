@@ -14,17 +14,17 @@ const MealSchema = z.object({
   title: z.string().describe('The name of the meal in Arabic.'),
   calories: z.number().describe('The estimated calorie count of the meal.'),
   macros: z.string().describe('The macronutrient breakdown (e.g., "P:30g, C:40g, F:15g").'),
-  tag: z.string().describe('A tag or category for the meal (e.g., "غداء/عشاء", "إفطار", "نباتي", "كيتو").'),
+  tag: z.string().describe('A tag or category for the meal.'),
 });
 
 const AiMealPlanSuggestionInputSchema = z.object({
   dietaryGoal: z.string().describe('The user\'s dietary goal (e.g., "weight loss", "muscle gain", "keto", "vegan", "healthy eating").'),
-  availableMeals: z.array(MealSchema).describe('An array of available meals from the gallery, each with title, calories, macros, and tag.'),
+  availableMeals: z.array(MealSchema).describe('An array of available meals from the gallery.'),
 });
 export type AiMealPlanSuggestionInput = z.infer<typeof AiMealPlanSuggestionInputSchema>;
 
 const AiMealPlanSuggestionOutputSchema = z.object({
-  suggestedMealPlan: z.array(MealSchema).min(3).max(5).describe('A suggested meal plan consisting of 3 to 5 meals that align with the user\'s dietary goal, selected from the available meals.'),
+  suggestedMealPlan: z.array(MealSchema).min(3).max(5).describe('A suggested meal plan consisting of 3 to 5 meals.'),
 });
 export type AiMealPlanSuggestionOutput = z.infer<typeof AiMealPlanSuggestionOutputSchema>;
 
@@ -36,23 +36,18 @@ const mealPlanPrompt = ai.definePrompt({
   name: 'mealPlanSuggestionPrompt',
   input: {schema: AiMealPlanSuggestionInputSchema},
   output: {schema: AiMealPlanSuggestionOutputSchema},
-  prompt: `أنت خبير تغذية ومخطط وجبات لدى "MealPrep Pro". مهمتك هي اقتراح خطة وجبات مناسبة لمستخدم جديد بناءً على هدفه الغذائي وقائمة الوجبات المتاحة.
+  prompt: `أنت خبير تغذية ومخطط وجبات لدى "MealPrep Pro". مهمتك هي اقتراح خطة وجبات مناسبة لمستخدم جديد بناءً على هدفه الغذائي وقائمة الوجبات المتاحة لدينا.
 
 الهدف الغذائي للمستخدم هو: {{{dietaryGoal}}}
 
-قائمة الوجبات المتاحة (في صيغة JSON):
-{{{JSON.stringify availableMeals}}}
+قائمة الوجبات المتاحة لدينا:
+{{#each availableMeals}}
+- الوجبة: {{{title}}}, السعرات: {{calories}}, الماكروز: {{{macros}}}, التصنيف: {{{tag}}}
+{{/each}}
 
-يرجى اختيار من 3 إلى 5 وجبات من قائمة "availableMeals" تتوافق بشكل أفضل مع الهدف الغذائي للمستخدم "خدمة MealPrep Pro"، مع مراعاة التنوع والتوازن. يجب أن يكون الإخراج JSON صالحًا ويحتوي فقط على قائمة الوجبات المقترحة التي تتبع نفس بنية الكائن في "availableMeals".
-
-مثال لـ "availableMeals" لتوضيح البنية:
-[
-    { "title": "دجاج مشوي مع أرز وخضار", "calories": 450, "macros": "P:35g, C:40g, F:15g", "tag": "غداء/عشاء" },
-    { "title": "سلمون مع بطاطس حلوة", "calories": 500, "macros": "P:30g, C:45g, F:20g", "tag": "غداء/عشاء" }
-]
-
-تأكد من أن الوجبات التي تختارها موجودة بالفعل في قائمة "availableMeals" المقدمة وأنك لا تختلق وجبات جديدة.
-`,
+يرجى اختيار من 3 إلى 5 وجبات من القائمة أعلاه تتوافق بشكل أفضل مع هدف المستخدم. 
+يجب أن تختار فقط من الوجبات المذكورة ولا تقم بابتكار وجبات جديدة.
+يجب أن يكون الرد بصيغة JSON تحتوي على مصفوفة الوجبات المختارة بنفس الهيكل الموضح.`,
 });
 
 const aiMealPlanSuggestionFlow = ai.defineFlow(
@@ -63,6 +58,7 @@ const aiMealPlanSuggestionFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await mealPlanPrompt(input);
-    return output!;
+    if (!output) throw new Error('AI failed to generate a meal plan');
+    return output;
   }
 );

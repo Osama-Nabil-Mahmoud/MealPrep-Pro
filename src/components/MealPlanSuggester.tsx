@@ -3,9 +3,10 @@
 import * as React from "react"
 import { suggestMealPlan } from "@/ai/flows/ai-meal-plan-suggestion"
 import { Button } from "@/components/ui/button"
-import { Loader2, Sparkles, CheckCircle2 } from "lucide-react"
+import { Loader2, Sparkles, CheckCircle2, AlertCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
 
 const availableMealsData = [
   { title: "دجاج مشوي مع أرز وخضار", calories: 450, macros: "P:35g, C:40g, F:15g", tag: "غداء/عشاء" },
@@ -34,17 +35,28 @@ export function MealPlanSuggester() {
   const [goal, setGoal] = React.useState("weight loss")
   const [loading, setLoading] = React.useState(false)
   const [suggestion, setSuggestion] = React.useState<any[] | null>(null)
+  const { toast } = useToast()
 
   const handleSuggest = async () => {
     setLoading(true)
+    setSuggestion(null)
     try {
       const result = await suggestMealPlan({
         dietaryGoal: goal,
         availableMeals: availableMealsData
       })
-      setSuggestion(result.suggestedMealPlan)
+      if (result && result.suggestedMealPlan) {
+        setSuggestion(result.suggestedMealPlan)
+      } else {
+        throw new Error("No data received")
+      }
     } catch (error) {
       console.error(error)
+      toast({
+        variant: "destructive",
+        title: "عذراً، حدث خطأ",
+        description: "فشل الذكاء الاصطناعي في إنشاء خطة حالياً. حاول مرة أخرى.",
+      })
     } finally {
       setLoading(false)
     }
@@ -82,26 +94,39 @@ export function MealPlanSuggester() {
       <Button 
         onClick={handleSuggest} 
         disabled={loading} 
-        className="w-full mb-8 font-bold"
+        className="w-full mb-8 font-bold h-12"
       >
-        {loading ? <Loader2 className="animate-spin mr-2" /> : "اقترح لي خطة وجبات"}
+        {loading ? (
+          <>
+            <Loader2 className="animate-spin mr-2 h-4 w-4" />
+            جاري التحليل والاقتراح...
+          </>
+        ) : (
+          "اقترح لي خطة وجبات"
+        )}
       </Button>
 
       {suggestion && (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك بناءً على 20 وجبة:</p>
+          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك بناءً على أهدافك:</p>
           {suggestion.map((meal, i) => (
-            <Card key={i} className="p-4 flex justify-between items-center bg-background border-primary/10">
+            <Card key={i} className="p-4 flex justify-between items-center bg-background border-primary/10 hover:border-primary/30 transition-colors">
               <div className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-primary" />
+                <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                 <div>
                   <p className="font-bold text-sm">{meal.title}</p>
                   <p className="text-[10px] text-muted-foreground">{meal.macros}</p>
                 </div>
               </div>
-              <Badge variant="secondary" className="text-[10px]">{meal.calories} سعرة</Badge>
+              <Badge variant="secondary" className="text-[10px] shrink-0">{meal.calories} سعرة</Badge>
             </Card>
           ))}
+        </div>
+      )}
+
+      {!loading && !suggestion && (
+        <div className="text-center py-4 text-xs text-muted-foreground">
+          اضغط على الزر للحصول على اقتراحات مخصصة.
         </div>
       )}
     </div>
