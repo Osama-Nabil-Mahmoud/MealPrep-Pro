@@ -168,7 +168,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:6g, C:5g, F:14g", 
     tag: "دهون صحية", 
     category: 'snack',
-    pexelsQuery: "mixed nuts bowl"
+    pexelsQuery: "mixed nuts bowl",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1rrjNz3iYrK4-j2n4vBGRV97uVyt4H5xk"
   },
   { 
     id: 's2', 
