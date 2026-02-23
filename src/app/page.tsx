@@ -33,7 +33,7 @@ export default function Home() {
 
       <Pricing onSubscribeClick={() => setIsTrialOpen(true)} />
 
-      <MealsGallery />
+      <MealsGallery onSelect={() => setIsTrialOpen(true)} />
 
       <section id="testimonials" className="py-16 md:py-24">
         <div className="container">
