@@ -22,7 +22,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:12g, C:50g, F:10g", 
     tag: "ألياف", 
     category: 'breakfast',
-    pexelsQuery: "oatmeal bowl berries nuts"
+    pexelsQuery: "oatmeal bowl berries nuts",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1wTJos1Ahq-Pg4uSGb4JlK8Tb1J-dkU55"
   },
   { 
     id: 'b2', 
