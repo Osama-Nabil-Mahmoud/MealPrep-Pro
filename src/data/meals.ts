@@ -121,7 +121,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:32g, C:35g, F:14g", 
     tag: "وجبة الغش الصحية", 
     category: 'lunch',
-    pexelsQuery: "healthy beef burger"
+    pexelsQuery: "healthy beef burger",
+    imageUrl: "https://drive.google.com/uc?export=view&id=19aZUfSfid-YKHI0C-HvSF6sg1vWAzx18"
   },
 
   // العشاء (Dinner)
