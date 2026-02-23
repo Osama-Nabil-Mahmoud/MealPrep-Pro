@@ -111,7 +111,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:30g, C:60g, F:10g", 
     tag: "كاربو", 
     category: 'lunch',
-    pexelsQuery: "chicken tomato pasta"
+    pexelsQuery: "chicken tomato pasta",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1jpRqF_0uSbLqUkm3s5-KB87YQ1rIWWGZ"
   },
   { 
     id: 'l5', 
