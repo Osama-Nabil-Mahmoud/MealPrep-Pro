@@ -14,9 +14,9 @@
     },
     {
       "id": "meal-3",
-      "description": "Steak with broccoli",
-      "imageUrl": "https://kitchen.sayidaty.net/sites/default/files/styles/930x558/public/2016-11/steak_with_broccoli_0.jpg",
-      "imageHint": "steak broccoli diet"
+      "description": "Steak strips with broccoli",
+      "imageUrl": "https://images.unsplash.com/photo-1615865417491-9941019fbc00?q=80&w=1080&auto=format&fit=crop",
+      "imageHint": "steak strips broccoli"
     },
     {
       "id": "meal-4",
