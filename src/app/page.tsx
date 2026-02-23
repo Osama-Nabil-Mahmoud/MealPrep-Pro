@@ -11,7 +11,6 @@ import { FAQ } from "@/components/FAQ"
 import { Footer } from "@/components/Footer"
 import { TrialDrawer } from "@/components/TrialDrawer"
 import { ConsultationModal } from "@/components/ConsultationModal"
-import { MealPlanSuggester } from "@/components/MealPlanSuggester"
 import { Button } from "@/components/ui/button"
 
 export default function Home() {
@@ -31,16 +30,6 @@ export default function Home() {
       <BeforeAfter />
 
       <Features />
-
-      <section id="ai-suggester" className="py-20 container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-headline mb-4">السر مش بس في الأكل، السر في النظام الذكي</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            تكنولوجيا MealPrep Pro بتساعدك تختار الأنسب لجسمك وهدفك.
-          </p>
-        </div>
-        <MealPlanSuggester />
-      </section>
 
       <Pricing onSubscribeClick={() => setIsTrialOpen(true)} />
 

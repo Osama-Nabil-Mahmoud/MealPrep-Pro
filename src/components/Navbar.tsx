@@ -13,7 +13,6 @@ export function Navbar({ onTrialClick }: { onTrialClick: () => void }) {
     { name: "المميزات", href: "#features" },
     { name: "الباقات", href: "#pricing" },
     { name: "الوجبات", href: "#gallery" },
-    { name: "مساعد الوجبات الذكي", href: "#ai-suggester" },
     { name: "قصص نجاح", href: "#testimonials" },
     { name: "الأسئلة", href: "#faq" },
   ]
