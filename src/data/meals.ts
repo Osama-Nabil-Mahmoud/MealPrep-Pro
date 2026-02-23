@@ -1,4 +1,3 @@
-
 export type MealCategory = 'breakfast' | 'lunch' | 'dinner' | 'snack';
 
 export interface Meal {
@@ -13,131 +12,191 @@ export interface Meal {
 }
 
 export const MEALS_DATA: Meal[] = [
-  // فطور (Breakfast)
+  // الفطور (Breakfast)
   { 
     id: 'b1', 
-    nameAr: "بان كيك بروتين بالتوت", 
+    nameAr: "شوفان بالفواكه والمكسرات", 
+    slug: "oats-fruits-nuts",
+    calories: 340, 
+    macros: "P:12g, C:50g, F:10g", 
+    tag: "ألياف", 
+    category: 'breakfast',
+    pexelsQuery: "oatmeal bowl berries nuts"
+  },
+  { 
+    id: 'b2', 
+    nameAr: "بيض أومليت مع خضار", 
+    slug: "veggie-omelette",
+    calories: 280, 
+    macros: "P:20g, C:5g, F:18g", 
+    tag: "بروتين", 
+    category: 'breakfast',
+    pexelsQuery: "veggie omelette plate"
+  },
+  { 
+    id: 'b3', 
+    nameAr: "بان كيك بروتين", 
     slug: "protein-pancakes",
     calories: 320, 
     macros: "P:25g, C:35g, F:8g", 
     tag: "طاقة", 
     category: 'breakfast',
-    pexelsQuery: "protein pancakes stack blueberies berries"
+    pexelsQuery: "protein pancakes stack"
   },
   { 
-    id: 'b2', 
-    nameAr: "شوفان بالفواكه والمكسرات", 
-    slug: "oats-fruits-nuts",
-    calories: 340, 
-    macros: "P:12g, C:50g, F:10g", 
-    tag: "ألياف عالية", 
+    id: 'b4', 
+    nameAr: "زبادي يوناني بالعسل والتوت", 
+    slug: "greek-yogurt-berries",
+    calories: 250, 
+    macros: "P:15g, C:25g, F:5g", 
+    tag: "سناك بروتين", 
     category: 'breakfast',
-    pexelsQuery: "oatmeal bowl berries nuts healthy breakfast"
+    pexelsQuery: "greek yogurt honey berries"
   },
   { 
-    id: 'b3', 
+    id: 'b5', 
     nameAr: "فول وطعمية (صحية!)", 
     slug: "ful-falafel-healthy",
     calories: 380, 
     macros: "P:18g, C:45g, F:12g", 
     tag: "شعبي مطور", 
     category: 'breakfast',
-    pexelsQuery: "fava beans bowl falafel healthy oriental breakfast"
+    pexelsQuery: "healthy falafel egyptian"
   },
 
-  // غداء (Lunch)
+  // الغداء (Lunch)
   { 
     id: 'l1', 
-    nameAr: "دجاج مشوي مع أرز وخضار", 
+    nameAr: "دجاج مشوي مع أرز بسمتي وخضار", 
     slug: "grilled-chicken-rice-veggies",
     calories: 450, 
     macros: "P:35g, C:40g, F:15g", 
     tag: "متوازن", 
     category: 'lunch',
-    pexelsQuery: "grilled chicken rice vegetables meal prep"
+    pexelsQuery: "grilled chicken rice vegetables"
   },
   { 
     id: 'l2', 
-    nameAr: "سلمون مع بطاطس حلوة", 
+    nameAr: "سلمون مع بطاطس حلوة مشوية", 
     slug: "salmon-sweet-potato",
     calories: 500, 
     macros: "P:30g, C:45g, F:20g", 
     tag: "أوميجا 3", 
     category: 'lunch',
-    pexelsQuery: "grilled salmon sweet potato healthy meal"
+    pexelsQuery: "grilled salmon sweet potato"
   },
   { 
     id: 'l3', 
-    nameAr: "كفتة مع أرز وسلطة", 
+    nameAr: "كفتة لحم مع أرز وسلطة", 
     slug: "kofta-rice",
     calories: 420, 
     macros: "P:35g, C:30g, F:18g", 
     tag: "بروتين عالي", 
     category: 'lunch',
-    pexelsQuery: "kofta rice healthy oriental meal"
+    pexelsQuery: "kofta kebab rice"
+  },
+  { 
+    id: 'l4', 
+    nameAr: "باستا بصوص الطماطم ودجاج", 
+    slug: "chicken-tomato-pasta",
+    calories: 550, 
+    macros: "P:30g, C:60g, F:10g", 
+    tag: "كاربو", 
+    category: 'lunch',
+    pexelsQuery: "chicken tomato pasta"
+  },
+  { 
+    id: 'l5', 
+    nameAr: "برجر صحي بخبز القمح الكامل", 
+    slug: "healthy-burger",
+    calories: 480, 
+    macros: "P:32g, C:35g, F:14g", 
+    tag: "وجبة الغش الصحية", 
+    category: 'lunch',
+    pexelsQuery: "healthy beef burger"
   },
 
-  // عشاء (Dinner)
+  // العشاء (Dinner)
   { 
     id: 'd1', 
-    nameAr: "ستيك مع بروكلي", 
+    nameAr: "ستيك مشوي مع بروكلي", 
     slug: "steak-broccoli",
     calories: 480, 
     macros: "P:40g, C:10g, F:25g", 
     tag: "كيتو", 
     category: 'dinner',
-    pexelsQuery: "steak broccoli meal prep healthy"
+    pexelsQuery: "steak broccoli plate"
   },
   { 
     id: 'd2', 
-    nameAr: "باستا بالدجاج", 
-    slug: "chicken-pasta",
-    calories: 550, 
-    macros: "P:30g, C:60g, F:10g", 
-    tag: "قبل التمرين", 
+    nameAr: "جمبري بالثوم مع كينوا", 
+    slug: "shrimp-quinoa-garlic",
+    calories: 380, 
+    macros: "P:28g, C:40g, F:12g", 
+    tag: "سوبر فود", 
     category: 'dinner',
-    pexelsQuery: "chicken pasta healthy meal prep"
+    pexelsQuery: "garlic shrimp quinoa"
   },
   { 
     id: 'd3', 
+    nameAr: "دجاج كاري مع أرز بني", 
+    slug: "chicken-curry-brown-rice",
+    calories: 460, 
+    macros: "P:32g, C:42g, F:14g", 
+    tag: "بهارات هندية", 
+    category: 'dinner',
+    pexelsQuery: "chicken curry brown rice"
+  },
+  { 
+    id: 'd4', 
     nameAr: "سمك فيليه مع خضار على البخار", 
     slug: "fish-fillet-steamed-veg",
     calories: 310, 
     macros: "P:30g, C:5g, F:12g", 
     tag: "عشاء خفيف", 
     category: 'dinner',
-    pexelsQuery: "fish fillet steamed vegetables healthy"
+    pexelsQuery: "steamed fish vegetables"
   },
 
-  // سناكس (Snacks)
+  // السناك (Snack)
   { 
     id: 's1', 
-    nameAr: "جمبري بالثوم مع كينوا", 
-    slug: "shrimp-quinoa-garlic",
-    calories: 380, 
-    macros: "P:28g, C:40g, F:12g", 
-    tag: "سوبر فود", 
+    nameAr: "مكسرات مشكلة", 
+    slug: "mixed-nuts",
+    calories: 180, 
+    macros: "P:6g, C:5g, F:14g", 
+    tag: "دهون صحية", 
     category: 'snack',
-    pexelsQuery: "garlic shrimp quinoa healthy meal"
+    pexelsQuery: "mixed nuts bowl"
   },
   { 
     id: 's2', 
-    nameAr: "زبادي يوناني بالعسل والتوت", 
-    slug: "greek-yogurt-honey-berries",
-    calories: 250, 
-    macros: "P:15g, C:25g, F:5g", 
-    tag: "سناك بروتين", 
+    nameAr: "فواكه طازجة", 
+    slug: "fresh-fruits",
+    calories: 120, 
+    macros: "P:1g, C:25g, F:0g", 
+    tag: "فيتامينات", 
     category: 'snack',
-    pexelsQuery: "greek yogurt honey berries bowl"
+    pexelsQuery: "fruit salad bowl"
   },
   { 
     id: 's3', 
+    nameAr: "بروتين بارز", 
+    slug: "protein-bars",
+    calories: 210, 
+    macros: "P:20g, C:15g, F:6g", 
+    tag: "بروتين عالي", 
+    category: 'snack',
+    pexelsQuery: "protein bar snacks"
+  },
+  { 
+    id: 's4', 
     nameAr: "حمص بالطحينة وخضار", 
     slug: "hummus-tahini-veggies",
     calories: 300, 
     macros: "P:10g, C:45g, F:8g", 
     tag: "نباتي", 
     category: 'snack',
-    pexelsQuery: "hummus tahini vegetables plate healthy"
+    pexelsQuery: "hummus plate vegetables"
   },
 ];
