@@ -47,6 +47,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.gomhuriaonline.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
