@@ -1,43 +1,73 @@
+
 "use client"
 
 import * as React from "react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import { Zap, Leaf, AlertCircle } from "lucide-react"
+import { Zap, Leaf, AlertCircle, Loader2, Camera } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MEALS_DATA, MealCategory, Meal } from "@/data/meals"
 
-function MealCard({ meal }: { meal: Meal }) {
-  const [imgSrc, setImgSrc] = React.useState(meal.imagePath)
-  const [hasError, setHasError] = React.useState(false)
+interface PexelsInfo {
+  imageUrl: string;
+  photographer: string;
+  photographerUrl: string;
+  pexelsUrl: string;
+}
 
-  const handleError = () => {
-    if (!hasError) {
-      console.warn(`⚠️ صورة غير موجودة للوجبة: ${meal.nameAr} -> ${meal.imagePath}`)
-      // عرض صورة Placeholder عشوائية من Picsum كبديل مؤقت إذا لم تتوفر الصورة المحلية
-      setImgSrc(`https://picsum.photos/seed/${meal.slug}/600/400`)
-      setHasError(true)
+function MealCard({ meal }: { meal: Meal }) {
+  const [pexelsInfo, setPexelsInfo] = React.useState<PexelsInfo | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
+
+  React.useEffect(() => {
+    async function fetchImage() {
+      try {
+        const res = await fetch(`/api/pexels?query=${encodeURIComponent(meal.pexelsQuery)}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        setPexelsInfo(data);
+      } catch (err) {
+        console.error(`Error loading image for ${meal.nameAr}:`, err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
+    fetchImage();
+  }, [meal]);
+
+  const fallbackUrl = `https://picsum.photos/seed/${meal.slug}/600/400`;
+  const displayImage = pexelsInfo?.imageUrl || fallbackUrl;
 
   return (
     <div className="group bg-card rounded-[2rem] overflow-hidden border hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        <Image 
-          src={imgSrc} 
-          alt={meal.nameAr}
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
-          onError={handleError}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          data-ai-hint={meal.slug.replace(/-/g, ' ')}
-        />
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted flex items-center justify-center">
+        {loading ? (
+          <Loader2 className="w-8 h-8 animate-spin text-primary/30" />
+        ) : (
+          <Image 
+            src={displayImage} 
+            alt={meal.nameAr}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
         <Badge className="absolute top-4 right-4 bg-white/95 text-black hover:bg-white border-none shadow-sm font-bold">
           {meal.tag}
         </Badge>
-        {hasError && (
-          <div className="absolute bottom-2 left-2 text-[10px] bg-red-500/80 text-white px-2 py-0.5 rounded flex items-center gap-1">
+        
+        {pexelsInfo && (
+          <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] text-white">
+            <Camera className="w-3 h-3" />
+            <span className="truncate max-w-[100px]">{pexelsInfo.photographer}</span>
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="absolute bottom-2 left-2 text-[10px] bg-amber-500/80 text-white px-2 py-0.5 rounded flex items-center gap-1">
             <AlertCircle className="w-3 h-3" /> صورة تجريبية
           </div>
         )}
@@ -75,7 +105,7 @@ export function MealsGallery() {
         <div className="text-center mb-10 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-headline font-bold mb-4">منيو الأسبوع</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto px-4 text-base md:text-lg">
-            أكل لذيذ، صحي، ومحسوب بدقة بدون تعقيد، بمكونات طازة يومياً.
+            أكل لذيذ، صحي، ومحسوب بدقة بدون تعقيد، بمكونات طازة من Pexels يومياً.
           </p>
         </div>
 
@@ -105,10 +135,14 @@ export function MealsGallery() {
           ))}
         </Tabs>
         
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center space-y-4">
           <p className="text-muted-foreground text-sm italic bg-muted/30 inline-block px-6 py-2 rounded-full border">
             * المنيو الكامل يضم وجبات متنوعة تتغير أسبوعياً لضمان التنوع.
           </p>
+          <div className="text-[10px] text-muted-foreground/60 flex items-center justify-center gap-2">
+            <span>جميع الصور المستخدمة مقدمة من</span>
+            <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline">Pexels</a>
+          </div>
         </div>
       </div>
     </section>
