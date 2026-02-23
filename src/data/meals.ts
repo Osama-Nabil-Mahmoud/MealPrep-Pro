@@ -9,6 +9,7 @@ export interface Meal {
   tag: string;
   category: MealCategory;
   pexelsQuery: string;
+  imageUrl?: string;
 }
 
 export const MEALS_DATA: Meal[] = [
@@ -197,6 +198,7 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:10g, C:45g, F:8g", 
     tag: "نباتي", 
     category: 'snack',
-    pexelsQuery: "hummus plate vegetables"
+    pexelsQuery: "hummus plate vegetables",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1gOPUc5eVyBKqp3UFSY9UGAQhU63pgO73"
   },
 ];

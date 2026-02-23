@@ -23,10 +23,20 @@ function MealCard({ meal }: { meal: Meal }) {
 
         {/* Image / Placeholder */}
         <div className="relative w-full h-full">
+          {meal.imageUrl ? (
+            <Image
+              src={meal.imageUrl}
+              alt={meal.nameAr}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
+              <Utensils className="w-12 h-12 text-primary/20" />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-0" />
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
-            <Utensils className="w-12 h-12 text-primary/20" />
-          </div>
         </div>
       </div>
 
