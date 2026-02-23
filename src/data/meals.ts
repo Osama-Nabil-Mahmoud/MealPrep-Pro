@@ -53,7 +53,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:15g, C:25g, F:5g", 
     tag: "سناك بروتين", 
     category: 'breakfast',
-    pexelsQuery: "greek yogurt honey berries"
+    pexelsQuery: "greek yogurt honey berries",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1DeUTu8waYjbadU52xV6jLda6MSLuAZCI"
   },
   { 
     id: 'b5', 
