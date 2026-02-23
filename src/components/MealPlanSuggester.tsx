@@ -3,7 +3,7 @@
 import * as React from "react"
 import { suggestMealPlan } from "@/ai/flows/ai-meal-plan-suggestion"
 import { Button } from "@/components/ui/button"
-import { Loader2, Sparkles, CheckCircle2, AlertCircle } from "lucide-react"
+import { Loader2, Sparkles, CheckCircle2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
@@ -48,14 +48,14 @@ export function MealPlanSuggester() {
       if (result && result.suggestedMealPlan) {
         setSuggestion(result.suggestedMealPlan)
       } else {
-        throw new Error("No data received")
+        throw new Error("لم يتم تلقي بيانات صحيحة من الذكاء الاصطناعي")
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
       toast({
         variant: "destructive",
         title: "عذراً، حدث خطأ",
-        description: "فشل الذكاء الاصطناعي في إنشاء خطة حالياً. حاول مرة أخرى.",
+        description: error.message || "فشل الذكاء الاصطناعي في إنشاء خطة حالياً. حاول مرة أخرى.",
       })
     } finally {
       setLoading(false)

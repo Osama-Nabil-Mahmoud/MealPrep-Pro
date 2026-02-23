@@ -28,15 +28,6 @@ const AiMealPlanSuggestionOutputSchema = z.object({
 });
 export type AiMealPlanSuggestionOutput = z.infer<typeof AiMealPlanSuggestionOutputSchema>;
 
-export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise<AiMealPlanSuggestionOutput> {
-  try {
-    return await aiMealPlanSuggestionFlow(input);
-  } catch (error) {
-    console.error('Genkit Flow Error:', error);
-    throw new Error('فشل الذكاء الاصطناعي في معالجة طلبك. يرجى التأكد من إعدادات الاتصال.');
-  }
-}
-
 const mealPlanPrompt = ai.definePrompt({
   name: 'mealPlanSuggestionPrompt',
   input: {schema: AiMealPlanSuggestionInputSchema},
@@ -55,15 +46,26 @@ const mealPlanPrompt = ai.definePrompt({
 يجب أن يكون الرد بصيغة JSON تحتوي على مصفوفة الوجبات المختارة بنفس الهيكل الموضح.`,
 });
 
-const aiMealPlanSuggestionFlow = ai.defineFlow(
-  {
-    name: 'aiMealPlanSuggestionFlow',
-    inputSchema: AiMealPlanSuggestionInputSchema,
-    outputSchema: AiMealPlanSuggestionOutputSchema,
-  },
-  async input => {
+export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise<AiMealPlanSuggestionOutput> {
+  try {
+    // التحقق من وجود مفتاح الـ API لتقديم رسالة خطأ واضحة في الـ Logs
+    if (!process.env.GOOGLE_GENAI_API_KEY && !process.env.GEMINI_API_KEY) {
+      throw new Error('مفتاح API الخاص بجوجل (GOOGLE_GENAI_API_KEY) غير مضاف في إعدادات البيئة.');
+    }
+
     const {output} = await mealPlanPrompt(input);
-    if (!output) throw new Error('AI failed to generate a meal plan');
+    
+    if (!output) {
+      throw new Error('لم يقم الذكاء الاصطناعي بإنشاء أي بيانات. يرجى المحاولة مرة أخرى.');
+    }
+    
     return output;
+  } catch (error: any) {
+    console.error('Genkit Flow Error Detail:', error);
+    
+    // محاولة استخراج رسالة خطأ مفهومة
+    const errorMessage = error.message || 'حدث خطأ غير متوقع في الاتصال بمحرك الذكاء الاصطناعي';
+    
+    throw new Error(`عذراً، المساعد الذكي واجه مشكلة: ${errorMessage}`);
   }
-);
+}
