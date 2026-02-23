@@ -16,7 +16,7 @@ const MealSchema = z.object({
 
 const AiMealPlanSuggestionInputSchema = z.object({
   dietaryGoal: z.string().describe('الهدف الغذائي للمستخدم (خسارة وزن، بناء عضل، إلخ).'),
-  availableMeals: z.array(MealSchema).describe('قائمة الوجبات الـ 20 المتاحة للاختيار منها.'),
+  availableMeals: z.array(MealSchema).describe('قائمة الوجبات المتاحة للاختيار منها.'),
 });
 export type AiMealPlanSuggestionInput = z.infer<typeof AiMealPlanSuggestionInputSchema>;
 
@@ -53,7 +53,7 @@ const suggestMealPlanFlow = ai.defineFlow(
     outputSchema: AiMealPlanSuggestionOutputSchema,
   },
   async (input) => {
-    // التحقق من مفتاح الـ API
+    // التحقق من مفتاح الـ API في البيئة
     if (!process.env.GOOGLE_GENAI_API_KEY) {
       throw new Error('API_KEY_MISSING');
     }
@@ -77,7 +77,7 @@ export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise
     return await suggestMealPlanFlow(input);
   } catch (error: any) {
     if (error.message === 'API_KEY_MISSING') {
-      throw new Error('مفتاح الذكاء الاصطناعي غير موجود. يرجى إضافة GOOGLE_GENAI_API_KEY في إعدادات Studio.');
+      throw new Error('مفتاح الذكاء الاصطناعي غير موجود. يرجى التأكد من إضافة GOOGLE_GENAI_API_KEY.');
     }
     throw new Error(error.message || 'حدث خطأ غير متوقع أثناء معالجة طلبك.');
   }
