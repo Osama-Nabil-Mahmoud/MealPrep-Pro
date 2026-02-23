@@ -12,7 +12,6 @@ import { Footer } from "@/components/Footer"
 import { TrialDrawer } from "@/components/TrialDrawer"
 import { ConsultationModal } from "@/components/ConsultationModal"
 import { Button } from "@/components/ui/button"
-import { MealPlanSuggester } from "@/components/MealPlanSuggester"
 
 export default function Home() {
   const [isTrialOpen, setIsTrialOpen] = React.useState(false)
@@ -31,16 +30,6 @@ export default function Home() {
       <BeforeAfter />
 
       <Features />
-
-      <section id="ai-suggester" className="py-12 bg-primary/5">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-headline mb-4">خطتك مخصصة بالذكاء الاصطناعي</h2>
-            <p className="text-muted-foreground">دع المساعد الذكي يختار لك الوجبات المثالية لأهدافك</p>
-          </div>
-          <MealPlanSuggester />
-        </div>
-      </section>
 
       <Pricing onSubscribeClick={() => setIsTrialOpen(true)} />
 
