@@ -9,13 +9,13 @@
     {
       "id": "meal-2",
       "description": "Salmon with sweet potatoes",
-      "imageUrl": "https://images.unsplash.com/photo-1739785938237-73b3654200d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2FsbW9uJTIwcG90YXRvfGVufDB8fHx8MTc3MTc4NTk1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "salmon potato"
     },
     {
       "id": "meal-3",
       "description": "Steak with broccoli",
-      "imageUrl": "https://images.unsplash.com/photo-1604313271701-44332906d48c?q=80&w=1080&auto=format&fit=crop",
+      "imageUrl": "https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "steak broccoli"
     },
     {
@@ -27,31 +27,31 @@
     {
       "id": "meal-5",
       "description": "Kofta with rice and salad",
-      "imageUrl": "https://images.unsplash.com/photo-1771285119318-b342c3ecc51c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxrb2Z0YSUyMHJpY2V8ZW58MHx8fHwxNzcxNzg1OTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "kofta rice"
     },
     {
       "id": "meal-6",
       "description": "Garlic shrimp with quinoa",
-      "imageUrl": "https://images.unsplash.com/photo-1696855179901-b0536053608f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzaHJpbXAlMjBxdWlub2F8ZW58MHx8fHwxNzcxNzg1OTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1535473897929-bc91f45287b6?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "shrimp quinoa"
     },
     {
       "id": "meal-7",
       "description": "Greek yogurt with honey and berries",
-      "imageUrl": "https://images.unsplash.com/photo-1593198232414-72431a1cc506?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxncmVlayUyMHlvZ3VydHxlbnwwfHx8fDE3NzE3ODU5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593198232414-72431a1cc506?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "greek yogurt"
     },
     {
       "id": "meal-8",
       "description": "Protein pancakes",
-      "imageUrl": "https://www.justfood.tv/UserFiles/proteinpancake21022.jpg",
+      "imageUrl": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "protein pancakes"
     },
     {
       "id": "meal-9",
       "description": "Healthy falafel",
-      "imageUrl": "https://images.unsplash.com/photo-1760888549074-5d885d859782?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoZWFsdGh5JTIwZmFsYWZlbHxlbnwwfHx8fDE3NzE3ODU5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593001874117-c99c4ed26273?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "healthy falafel"
     }
   ]
