@@ -99,7 +99,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:35g, C:30g, F:18g", 
     tag: "بروتين عالي", 
     category: 'lunch',
-    pexelsQuery: "kofta kebab rice"
+    pexelsQuery: "kofta kebab rice",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1G0Scovcfhq0bNSd16o8kP-GGf3K11rke"
   },
   { 
     id: 'l4', 
