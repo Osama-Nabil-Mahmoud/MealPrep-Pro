@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -26,7 +27,6 @@ import { useToast } from "@/hooks/use-toast"
 const formSchema = z.object({
   name: z.string().min(2, "الاسم مطلوب"),
   phone: z.string().min(11, "رقم الموبايل غير صحيح"),
-  email: z.string().email("البريد الإلكتروني غير صحيح"),
   time: z.string().min(1, "اختار الموعد المفضل"),
 })
 
@@ -37,7 +37,6 @@ export function ConsultationModal({ isOpen, onClose }: { isOpen: boolean, onClos
     defaultValues: {
       name: "",
       phone: "",
-      email: "",
       time: "",
     },
   })
@@ -47,7 +46,6 @@ export function ConsultationModal({ isOpen, onClose }: { isOpen: boolean, onClos
     const message = `مرحباً MealPrep Pro، أود حجز استشارة مجانية:
 *الاسم:* ${values.name}
 *الموبايل:* ${values.phone}
-*البريد:* ${values.email}
 *الموعد المفضل:* ${values.time}`
     
     const encodedMessage = encodeURIComponent(message)
@@ -114,7 +112,7 @@ export function ConsultationModal({ isOpen, onClose }: { isOpen: boolean, onClos
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full font-bold h-11">تأكيد الحجز عبر الواتساب</Button>
+            <Button type="submit" className="w-full font-bold h-11 text-lg">تأكيد الحجز عبر الواتساب</Button>
           </form>
         </Form>
       </DialogContent>
