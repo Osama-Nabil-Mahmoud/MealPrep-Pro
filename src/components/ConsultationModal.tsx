@@ -43,10 +43,21 @@ export function ConsultationModal({ isOpen, onClose }: { isOpen: boolean, onClos
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    const whatsappNumber = "201210285859"
+    const message = `مرحباً MealPrep Pro، أود حجز استشارة مجانية:
+*الاسم:* ${values.name}
+*الموبايل:* ${values.phone}
+*البريد:* ${values.email}
+*الموعد المفضل:* ${values.time}`
+    
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+    
+    window.open(whatsappUrl, "_blank")
+
     toast({
-      title: "تم حجز استشارتك!",
-      description: "أخصائي التغذية هيتواصل معاك في الموعد المختار.",
+      title: "تم توجيهك للواتساب!",
+      description: "يرجى إرسال الرسالة لتأكيد موعد الاستشارة.",
     })
     form.reset()
     onClose()
@@ -103,7 +114,7 @@ export function ConsultationModal({ isOpen, onClose }: { isOpen: boolean, onClos
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full font-bold h-11">تأكيد الحجز</Button>
+            <Button type="submit" className="w-full font-bold h-11">تأكيد الحجز عبر الواتساب</Button>
           </form>
         </Form>
       </DialogContent>

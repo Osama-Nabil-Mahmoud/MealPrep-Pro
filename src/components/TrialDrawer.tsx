@@ -47,10 +47,22 @@ export function TrialDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () 
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    const whatsappNumber = "201210285859"
+    const message = `مرحباً MealPrep Pro، أريد طلب باقة تجريبية:
+*الاسم:* ${values.name}
+*الموبايل:* ${values.phone}
+*البريد:* ${values.email}
+*الباقة:* ${values.plan}
+*الهدف:* ${values.goal}`
+    
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+    
+    window.open(whatsappUrl, "_blank")
+    
     toast({
-      title: "تم استلام طلبك بنجاح!",
-      description: "فريقنا هيتواصل معاك خلال 24 ساعة لتأكيد التفاصيل.",
+      title: "تم توجيهك للواتساب!",
+      description: "يرجى إرسال الرسالة لتأكيد طلبك.",
     })
     form.reset()
     onClose()
@@ -152,7 +164,7 @@ export function TrialDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full text-lg font-bold h-12 mt-6">تأكيد الطلب</Button>
+            <Button type="submit" className="w-full text-lg font-bold h-12 mt-6">تأكيد الطلب عبر الواتساب</Button>
           </form>
         </Form>
       </SheetContent>
