@@ -3,12 +3,11 @@
 import * as React from "react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import { Utensils, Zap, Leaf, Flame, Plus } from "lucide-react"
+import { Utensils, Zap, Leaf, Flame } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
 import { MEALS_DATA, Meal } from "@/data/meals"
 
-function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
+function MealCard({ meal }: { meal: Meal }) {
   const macroList = meal.macros.split(',').map(m => m.trim());
 
   return (
@@ -51,18 +50,9 @@ function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
           ))}
         </div>
 
-        {/* Bottom Info & CTA */}
+        {/* Bottom Info */}
         <div className="pt-4 mt-auto flex flex-row-reverse items-center justify-between border-t border-border/50">
-          <Button 
-            size="sm" 
-            onClick={onSelect}
-            className="rounded-full h-9 px-4 gap-2 font-bold md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 md:translate-y-2 md:group-hover:translate-y-0"
-          >
-            اختار الوجبة
-            <Plus className="w-3.5 h-3.5" />
-          </Button>
-
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-end w-full">
             <span className="text-[10px] text-muted-foreground font-medium">الطاقة</span>
             <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-bold">
               {meal.calories} سعرة
@@ -74,7 +64,7 @@ function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
   )
 }
 
-export function MealsGallery({ onSelect }: { onSelect?: () => void }) {
+export function MealsGallery() {
   const categories = [
     { label: "الفطور", value: "breakfast" },
     { label: "الغداء", value: "lunch" },
@@ -112,7 +102,7 @@ export function MealsGallery({ onSelect }: { onSelect?: () => void }) {
             <TabsContent key={cat.value} value={cat.value} className="mt-0 focus-visible:outline-none animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 {MEALS_DATA.filter(meal => meal.category === cat.value).map((meal) => (
-                  <MealCard key={meal.id} meal={meal} onSelect={onSelect} />
+                  <MealCard key={meal.id} meal={meal} />
                 ))}
               </div>
             </TabsContent>
