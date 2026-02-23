@@ -3,10 +3,11 @@
 import * as React from "react"
 import { suggestMealPlan } from "@/ai/flows/ai-meal-plan-suggestion"
 import { Button } from "@/components/ui/button"
-import { Loader2, Sparkles, CheckCircle2 } from "lucide-react"
+import { Loader2, Sparkles, CheckCircle2, AlertCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 const availableMealsData = [
   { title: "دجاج مشوي مع أرز وخضار", calories: 450, macros: "P:35g, C:40g, F:15g", tag: "غداء/عشاء" },
@@ -18,16 +19,16 @@ const availableMealsData = [
   { title: "زبادي يوناني بالعسل والتوت", calories: 250, macros: "P:15g, C:25g, F:5g", tag: "إفطار" },
   { title: "بان كيك بروتين", calories: 320, macros: "P:25g, C:35g, F:8g", tag: "إفطار" },
   { title: "فول وطعمية (صحية!)", calories: 350, macros: "P:18g, C:45g, F:12g", tag: "نباتي" },
-  { title: "دجاج كاري مع أرز بسمتي", calories: 460, macros: "P:32g, C:42g, F:14g", tag: "غداء/عشاء" },
+  { title: "دجاج كاري مع أرز بسمتي", calories: 460, macros: "P:32g, C:42g, F:14g", tag: "متوازن" },
   { title: "سمك فيليه مشوي", calories: 310, macros: "P:30g, C:5g, F:12g", tag: "غداء/عشاء" },
   { title: "تونة بالخضار والذرة", calories: 290, macros: "P:28g, C:15g, F:8g", tag: "غداء/عشاء" },
-  { title: "صدر ديك رومي مع فريك", calories: 430, macros: "P:38g, C:35g, F:10g", tag: "غداء/عشاء" },
-  { title: "فاصوليا بيضاء مع لحم", calories: 470, macros: "P:30g, C:38g, F:16g", tag: "غداء/عشاء" },
-  { title: "ملوخية مع دجاج مسلوق", calories: 390, macros: "P:35g, C:10g, F:12g", tag: "غداء/عشاء" },
+  { title: "صدر ديك رومي مع فريك", calories: 430, macros: "P:38g, C:35g, F:10g", tag: "بروتين عالي" },
+  { title: "فاصوليا بيضاء مع لحم", calories: 470, macros: "P:30g, C:38g, F:16g", tag: "تقليدي" },
+  { title: "ملوخية مع دجاج مسلوق", calories: 390, macros: "P:35g, C:10g, F:12g", tag: "قليل الكارب" },
   { title: "أومليت بالخضار والجبن", calories: 280, macros: "P:20g, C:5g, F:18g", tag: "إفطار" },
   { title: "شوفان بالموز والمكسرات", calories: 340, macros: "P:12g, C:50g, F:10g", tag: "إفطار" },
   { title: "برجر لحم صحي (بدون خبز)", calories: 410, macros: "P:35g, C:5g, F:22g", tag: "كيتو" },
-  { title: "سلطة سيزر بالدجاج", calories: 320, macros: "P:28g, C:10g, F:15g", tag: "غداء/عشاء" },
+  { title: "سلطة سيزر بالدجاج", calories: 320, macros: "P:28g, C:10g, F:15g", tag: "سلطات" },
   { title: "كينوا بالخضار المشوية", calories: 300, macros: "P:10g, C:45g, F:8g", tag: "نباتي" }
 ]
 
@@ -35,11 +36,13 @@ export function MealPlanSuggester() {
   const [goal, setGoal] = React.useState("weight loss")
   const [loading, setLoading] = React.useState(false)
   const [suggestion, setSuggestion] = React.useState<any[] | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
   const { toast } = useToast()
 
   const handleSuggest = async () => {
     setLoading(true)
     setSuggestion(null)
+    setError(null)
     try {
       const result = await suggestMealPlan({
         dietaryGoal: goal,
@@ -49,14 +52,15 @@ export function MealPlanSuggester() {
       if (result && result.suggestedMealPlan) {
         setSuggestion(result.suggestedMealPlan)
       } else {
-        throw new Error("لم يتم تلقي بيانات صحيحة")
+        throw new Error("لم يتم تلقي بيانات صحيحة من المساعد الذكي.")
       }
-    } catch (error: any) {
-      console.error('UI Error:', error)
+    } catch (err: any) {
+      console.error('UI Error:', err)
+      setError(err.message)
       toast({
         variant: "destructive",
-        title: "عذراً، حدث خطأ",
-        description: error.message || "فشل النظام في إنشاء الخطة. يرجى التحقق من إعدادات الذكاء الاصطناعي.",
+        title: "خطأ في المساعد الذكي",
+        description: err.message,
       })
     } finally {
       setLoading(false)
@@ -70,8 +74,8 @@ export function MealPlanSuggester() {
         <h3 className="text-xl font-bold">اقتراح وجبات ذكي (AI)</h3>
       </div>
       
-      <p className="mb-6 text-sm text-muted-foreground">
-        اختار هدفك وسيب الذكاء الاصطناعي ينسق لك منيو مخصص من وجباتنا الـ 20.
+      <p className="mb-6 text-sm text-muted-foreground leading-relaxed">
+        اختار هدفك وسيب الذكاء الاصطناعي ينسق لك منيو مخصص من وجباتنا الـ 20 المتاحة بناءً على احتياجك.
       </p>
 
       <div className="flex flex-wrap gap-2 mb-8">
@@ -84,8 +88,8 @@ export function MealPlanSuggester() {
           <Badge
             key={item.value}
             variant={goal === item.value ? "default" : "outline"}
-            className="cursor-pointer py-1.5 px-4"
-            onClick={() => { setGoal(item.value); setSuggestion(null); }}
+            className="cursor-pointer py-1.5 px-4 text-sm transition-all"
+            onClick={() => { setGoal(item.value); setSuggestion(null); setError(null); }}
           >
             {item.label}
           </Badge>
@@ -95,25 +99,39 @@ export function MealPlanSuggester() {
       <Button 
         onClick={handleSuggest} 
         disabled={loading} 
-        className="w-full mb-8 font-bold h-12"
+        className="w-full mb-8 font-bold h-12 text-lg shadow-sm hover:shadow-md transition-all"
       >
         {loading ? (
           <>
-            <Loader2 className="animate-spin mr-2 h-4 w-4" />
-            جاري التحليل...
+            <Loader2 className="animate-spin ml-2 h-5 w-5" />
+            جاري التفكير...
           </>
         ) : (
           "اقترح لي خطة وجبات"
         )}
       </Button>
 
+      {error && (
+        <Alert variant="destructive" className="mb-8">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>تنبيه</AlertTitle>
+          <AlertDescription className="text-xs">
+            {error}
+            <br />
+            <span className="font-bold">تأكد من إضافة GOOGLE_GENAI_API_KEY في إعدادات البيئة بداخل Studio.</span>
+          </AlertDescription>
+        </Alert>
+      )}
+
       {suggestion && (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك:</p>
+          <p className="font-bold text-sm mb-2 text-primary flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" /> الخطة المقترحة لك:
+          </p>
           {suggestion.map((meal, i) => (
-            <Card key={i} className="p-4 flex justify-between items-center bg-background border-primary/10 hover:border-primary/30 transition-colors">
+            <Card key={i} className="p-4 flex justify-between items-center bg-background border-primary/10 hover:border-primary/30 transition-all hover:shadow-sm">
               <div className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                <div className="w-2 h-2 rounded-full bg-primary" />
                 <div>
                   <p className="font-bold text-sm">{meal.title}</p>
                   <p className="text-[10px] text-muted-foreground">{meal.macros}</p>
@@ -122,12 +140,15 @@ export function MealPlanSuggester() {
               <Badge variant="secondary" className="text-[10px] shrink-0">{meal.calories} سعرة</Badge>
             </Card>
           ))}
+          <p className="text-[10px] text-center text-muted-foreground mt-4 italic">
+            * هذه الاقتراحات تم إنشاؤها بواسطة الذكاء الاصطناعي لـ MealPrep Pro.
+          </p>
         </div>
       )}
 
-      {!loading && !suggestion && (
-        <div className="text-center py-4 text-xs text-muted-foreground">
-          اضغط للحصول على اقتراحات مخصصة.
+      {!loading && !suggestion && !error && (
+        <div className="text-center py-4 text-xs text-muted-foreground border-2 border-dashed border-primary/10 rounded-xl">
+          اضغط للحصول على خطة مخصصة الآن.
         </div>
       )}
     </div>

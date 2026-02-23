@@ -1,31 +1,55 @@
 'use server';
 /**
- * @fileOverview An AI agent that suggests meal plans based on dietary goals.
+ * @fileOverview نظام ذكاء اصطناعي لاقتراح الوجبات بناءً على الأهداف الغذائية.
+ * يستخدم هذا الملف Genkit 1.x API الرسمي.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const MealSchema = z.object({
-  title: z.string().describe('The name of the meal in Arabic.'),
-  calories: z.number().describe('The estimated calorie count of the meal.'),
-  macros: z.string().describe('The macronutrient breakdown (e.g., "P:30g, C:40g, F:15g").'),
-  tag: z.string().describe('A tag or category for the meal.'),
+  title: z.string().describe('اسم الوجبة باللغة العربية.'),
+  calories: z.number().describe('عدد السعرات الحرارية التقريبي.'),
+  macros: z.string().describe('توزيع الماكروز (بروتين، كارب، دهون).'),
+  tag: z.string().describe('تصنيف الوجبة.'),
 });
 
 const AiMealPlanSuggestionInputSchema = z.object({
-  dietaryGoal: z.string().describe('The user\'s dietary goal.'),
-  availableMeals: z.array(MealSchema).describe('An array of available meals.'),
+  dietaryGoal: z.string().describe('الهدف الغذائي للمستخدم (خسارة وزن، بناء عضل، إلخ).'),
+  availableMeals: z.array(MealSchema).describe('قائمة الوجبات الـ 20 المتاحة للاختيار منها.'),
 });
 export type AiMealPlanSuggestionInput = z.infer<typeof AiMealPlanSuggestionInputSchema>;
 
 const AiMealPlanSuggestionOutputSchema = z.object({
-  suggestedMealPlan: z.array(MealSchema).min(3).max(5).describe('A suggested meal plan consisting of 3 to 5 meals.'),
+  suggestedMealPlan: z.array(MealSchema).min(3).max(5).describe('خطة مقترحة من 3 إلى 5 وجبات من القائمة المتاحة فقط.'),
 });
 export type AiMealPlanSuggestionOutput = z.infer<typeof AiMealPlanSuggestionOutputSchema>;
 
 /**
- * AI Meal Plan Suggestion Flow
+ * تعريف البرومبت باستخدام Genkit 1.x
+ * نستخدم Handlebars لتمرير البيانات بشكل آمن ومفهوم للذكاء الاصطناعي.
+ */
+const suggestMealPlanPrompt = ai.definePrompt({
+  name: 'suggestMealPlanPrompt',
+  input: { schema: AiMealPlanSuggestionInputSchema },
+  output: { schema: AiMealPlanSuggestionOutputSchema },
+  prompt: `أنت خبير تغذية متخصص في شركة "MealPrep Pro" في مصر.
+
+هدفك هو اختيار أفضل الوجبات من القائمة المتاحة لتناسب هدف المستخدم: "{{{dietaryGoal}}}".
+
+قائمة الوجبات المتاحة (يجب أن تختار من هذه القائمة فقط):
+{{#each availableMeals}}
+- {{{title}}} ({{{calories}}} سعرة، {{{macros}}})
+{{/each}}
+
+المطلوب:
+1. اختر من 3 إلى 5 وجبات تناسب هدف المستخدم.
+2. تأكد من تنوع الوجبات (مثلاً: إفطار، غداء، عشاء).
+3. التزم بالأسماء والبيانات الموجودة في القائمة المتاحة تماماً.`,
+});
+
+/**
+ * تعريف الـ Flow الذي يربط البرومبت بالمنطق البرمجي.
  */
 const suggestMealPlanFlow = ai.defineFlow(
   {
@@ -34,40 +58,42 @@ const suggestMealPlanFlow = ai.defineFlow(
     outputSchema: AiMealPlanSuggestionOutputSchema,
   },
   async (input) => {
+    // التحقق من وجود مفتاح الـ API لتقديم رسالة خطأ واضحة
+    if (!process.env.GOOGLE_GENAI_API_KEY) {
+      throw new Error('مفتاح GOOGLE_GENAI_API_KEY غير موجود في إعدادات البيئة.');
+    }
+
     try {
-      // Use the default model from genkit.ts for better compatibility
-      const { output } = await ai.generate({
-        prompt: `أنت خبير تغذية لدى "MealPrep Pro".
-الهدف الغذائي للمستخدم هو: ${input.dietaryGoal}
-
-قائمة الوجبات المتاحة (اختر منها فقط):
-${input.availableMeals.map(m => `- ${m.title} (${m.calories} سعرة, ${m.macros})`).join('\n')}
-
-يرجى اقتراح من 3 إلى 5 وجبات تناسب هذا الهدف من القائمة المذكورة فقط.`,
-        output: { schema: AiMealPlanSuggestionOutputSchema },
-      });
-
+      const { output } = await suggestMealPlanPrompt(input);
       if (!output) {
-        throw new Error('لم يتمكن الذكاء الاصطناعي من توليد اقتراح. يرجى المحاولة مرة أخرى.');
+        throw new Error('لم يتمكن الذكاء الاصطناعي من توليد رد صحيح.');
       }
-
       return output;
     } catch (err: any) {
-      console.error('AI Generation Error:', err);
-      throw new Error(err.message || 'حدث خطأ أثناء معالجة البيانات.');
+      console.error('AI Processing Error:', err);
+      throw err;
     }
   }
 );
 
+/**
+ * دالة التصدير لاستخدامها في الواجهة الأمامية.
+ */
 export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise<AiMealPlanSuggestionOutput> {
   try {
     return await suggestMealPlanFlow(input);
   } catch (error: any) {
-    console.error('Flow Execution Error:', error);
-    // Provide a clearer error message for missing API key
-    if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('403') || error.message?.includes('401')) {
-      throw new Error('مفتاح الذكاء الاصطناعي غير صحيح أو غير مفعل. يرجى التأكد من إعدادات GOOGLE_GENAI_API_KEY.');
+    console.error('Flow execution failed:', error);
+    
+    // معالجة الأخطاء الشائعة بشكل مفهوم
+    if (error.message?.includes('404') || error.message?.includes('not found')) {
+      throw new Error('عذراً، الموديل غير متوفر حالياً أو الاسم غير صحيح. يرجى مراجعة إعدادات الموديل.');
     }
-    throw new Error(error.message || 'فشل المساعد الذكي في الاستجابة حالياً.');
+    
+    if (error.message?.includes('API_KEY')) {
+      throw new Error('مفتاح الذكاء الاصطناعي غير صحيح أو غير مضاف. يرجى إضافته في إعدادات المشروع.');
+    }
+
+    throw new Error(error.message || 'حدث خطأ غير متوقع أثناء معالجة طلبك.');
   }
 }
