@@ -189,7 +189,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:20g, C:15g, F:6g", 
     tag: "بروتين عالي", 
     category: 'snack',
-    pexelsQuery: "protein bar snacks"
+    pexelsQuery: "protein bar snacks",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1_FJzhsHlI4tWGlKn8xTpcQCtPnJ9GIby"
   },
   { 
     id: 's4', 
