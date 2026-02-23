@@ -161,7 +161,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:30g, C:5g, F:12g", 
     tag: "عشاء خفيف", 
     category: 'dinner',
-    pexelsQuery: "steamed fish vegetables"
+    pexelsQuery: "steamed fish vegetables",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1aMVgbmyCEYTmw2TlpP8-YAvhcL0pdzY0"
   },
 
   // السناك (Snack)
