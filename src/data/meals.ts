@@ -79,7 +79,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:35g, C:40g, F:15g", 
     tag: "متوازن", 
     category: 'lunch',
-    pexelsQuery: "grilled chicken rice vegetables"
+    pexelsQuery: "grilled chicken rice vegetables",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1JtCtGaYebEHibc_zGlPMNiBmncUnvgeK"
   },
   { 
     id: 'l2', 
