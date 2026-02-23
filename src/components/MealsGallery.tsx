@@ -9,11 +9,10 @@ import { Button } from "@/components/ui/button"
 import { MEALS_DATA, Meal } from "@/data/meals"
 
 function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
-  // Parse macros into individual badges if possible, or just split them
   const macroList = meal.macros.split(',').map(m => m.trim());
 
   return (
-    <div className="group bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col h-full relative">
+    <div className="group bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col h-full relative text-right" dir="rtl">
       {/* Image Section */}
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
         {/* Tag Overlay */}
@@ -29,29 +28,22 @@ function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
             <Utensils className="w-12 h-12 text-primary/20" />
           </div>
-          {/* Note: In production, uncomment the Image tag when images are uploaded to public/meals/ */}
-          {/* 
-          <Image 
-            src={`/meals/${meal.slug}.jpg`} 
-            alt={meal.nameAr}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-          /> 
-          */}
         </div>
       </div>
 
       {/* Content Section */}
       <div className="p-5 flex flex-col flex-1 space-y-3">
         <div className="space-y-1">
-          <p className="text-[10px] text-primary font-bold uppercase tracking-wider">{meal.category === 'breakfast' ? 'فطور' : meal.category === 'lunch' ? 'غداء' : meal.category === 'dinner' ? 'عشاء' : 'سناك'}</p>
-          <h3 className="font-bold text-lg leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
+          <p className="text-[10px] text-primary font-bold uppercase tracking-wider text-right">
+            {meal.category === 'breakfast' ? 'فطور' : meal.category === 'lunch' ? 'غداء' : meal.category === 'dinner' ? 'عشاء' : 'سناك'}
+          </p>
+          <h3 className="font-bold text-lg leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem] text-right">
             {meal.nameAr}
           </h3>
         </div>
         
-        {/* Macros Badges */}
-        <div className="flex flex-wrap gap-1.5">
+        {/* Macros Badges - Right aligned in RTL */}
+        <div className="flex flex-wrap gap-1.5 justify-start">
           {macroList.map((macro, idx) => (
             <Badge key={idx} variant="outline" className="text-[10px] font-medium py-0 px-2 bg-muted/30 border-muted-foreground/20">
               {macro}
@@ -60,14 +52,7 @@ function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
         </div>
 
         {/* Bottom Info & CTA */}
-        <div className="pt-4 mt-auto flex items-center justify-between border-t border-border/50">
-          <div className="flex flex-col">
-            <span className="text-[10px] text-muted-foreground font-medium">الطاقة</span>
-            <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-bold">
-              {meal.calories} سعرة
-            </Badge>
-          </div>
-          
+        <div className="pt-4 mt-auto flex flex-row-reverse items-center justify-between border-t border-border/50">
           <Button 
             size="sm" 
             onClick={onSelect}
@@ -76,6 +61,13 @@ function MealCard({ meal, onSelect }: { meal: Meal; onSelect?: () => void }) {
             اختار الوجبة
             <Plus className="w-3.5 h-3.5" />
           </Button>
+
+          <div className="flex flex-col items-end">
+            <span className="text-[10px] text-muted-foreground font-medium">الطاقة</span>
+            <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-bold">
+              {meal.calories} سعرة
+            </Badge>
+          </div>
         </div>
       </div>
     </div>
@@ -91,7 +83,7 @@ export function MealsGallery({ onSelect }: { onSelect?: () => void }) {
   ] as const;
 
   return (
-    <section id="gallery" className="py-20 md:py-28 bg-background scroll-mt-16">
+    <section id="gallery" className="py-20 md:py-28 bg-background scroll-mt-16" dir="rtl">
       <div className="container">
         <div className="text-center mb-12 md:mb-20 space-y-4">
           <Badge variant="outline" className="text-primary border-primary/20 px-4 py-1">قائمة الطعام</Badge>

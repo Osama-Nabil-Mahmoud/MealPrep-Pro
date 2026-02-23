@@ -48,7 +48,7 @@ export default function Home() {
               { name: "كريم ممدوح", story: "زودت 6 كج عضل صافي بفضل الماكروز الدقيقة للوجبات." },
               { name: "مريم علي", story: "أم عاملة: راحة تامة وأكل صحي ومضمون لكل العيلة." }
             ].map((s, i) => (
-              <div key={i} className="bg-card p-6 rounded-2xl border shadow-sm flex flex-col justify-between">
+              <div key={i} className="bg-card p-6 rounded-2xl border shadow-sm flex flex-col justify-between text-right" dir="rtl">
                 <div>
                   <p className="italic text-muted-foreground mb-4 leading-relaxed">"{s.story}"</p>
                   <p className="font-bold text-primary">{s.name}</p>
