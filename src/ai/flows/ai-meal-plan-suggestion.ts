@@ -34,25 +34,28 @@ const suggestMealPlanFlow = ai.defineFlow(
     outputSchema: AiMealPlanSuggestionOutputSchema,
   },
   async (input) => {
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash',
-      prompt: `أنت خبير تغذية ومخطط وجبات لدى "MealPrep Pro". مهمتك هي اقتراح خطة وجبات مناسبة لمستخدم جديد بناءً على هدفه الغذائي وقائمة الوجبات المتاحة لدينا.
-
+    try {
+      const { output } = await ai.generate({
+        // Using the default model defined in genkit.ts
+        prompt: `أنت خبير تغذية لدى "MealPrep Pro".
 الهدف الغذائي للمستخدم هو: ${input.dietaryGoal}
 
-قائمة الوجبات المتاحة لدينا:
-${input.availableMeals.map(m => `- الوجبة: ${m.title}, السعرات: ${m.calories}, الماكروز: ${m.macros}, التصنيف: ${m.tag}`).join('\n')}
+قائمة الوجبات المتاحة (اختر منها فقط):
+${input.availableMeals.map(m => `- ${m.title} (${m.calories} سعرة, ${m.macros})`).join('\n')}
 
-يرجى اختيار من 3 إلى 5 وجبات من القائمة أعلاه تتوافق بشكل أفضل مع هدف المستخدم. 
-يجب أن تختار فقط من الوجبات المذكورة ولا تقم بابتكار وجبات جديدة.`,
-      output: { schema: AiMealPlanSuggestionOutputSchema },
-    });
+يرجى اقتراح من 3 إلى 5 وجبات تناسب هذا الهدف من القائمة المذكورة فقط.`,
+        output: { schema: AiMealPlanSuggestionOutputSchema },
+      });
 
-    if (!output) {
-      throw new Error('لم يتمكن الذكاء الاصطناعي من توليد اقتراح. يرجى المحاولة مرة أخرى.');
+      if (!output) {
+        throw new Error('لم يتم توليد اقتراح.');
+      }
+
+      return output;
+    } catch (err: any) {
+      console.error('AI Generation Error:', err);
+      throw new Error(err.message || 'حدث خطأ أثناء معالجة البيانات.');
     }
-
-    return output;
   }
 );
 
@@ -60,7 +63,7 @@ export async function suggestMealPlan(input: AiMealPlanSuggestionInput): Promise
   try {
     return await suggestMealPlanFlow(input);
   } catch (error: any) {
-    console.error('Genkit Error:', error);
-    throw new Error(error.message || 'حدث خطأ في الاتصال بمحرك الذكاء الاصطناعي.');
+    console.error('Flow Execution Error:', error);
+    throw new Error(error.message || 'فشل المساعد الذكي في الاستجابة حالياً.');
   }
 }
