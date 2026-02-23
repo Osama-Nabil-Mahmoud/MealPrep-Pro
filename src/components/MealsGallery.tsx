@@ -11,11 +11,10 @@ function MealCard({ meal }: { meal: Meal }) {
   const [imgSrc, setImgSrc] = React.useState(meal.imagePath)
   const [hasError, setHasError] = React.useState(false)
 
-  // دالة للتعامل مع الصور المفقودة
   const handleError = () => {
     if (!hasError) {
       console.warn(`⚠️ صورة غير موجودة للوجبة: ${meal.nameAr} -> ${meal.imagePath}`)
-      // استبدال بـ Placeholder من Picsum كحل مؤقت لحين رفع الصور الحقيقية
+      // عرض صورة Placeholder عشوائية من Picsum كبديل مؤقت إذا لم تتوفر الصورة المحلية
       setImgSrc(`https://picsum.photos/seed/${meal.slug}/600/400`)
       setHasError(true)
     }
