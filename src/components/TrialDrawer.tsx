@@ -25,6 +25,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "
 import { useToast } from "@/hooks/use-toast"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { PRICING_PLANS } from "@/data/plans"
 
 const formSchema = z.object({
   name: z.string().min(2, "الاسم مطلوب"),
@@ -135,9 +136,11 @@ export function TrialDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent dir="rtl">
-                          <SelectItem value="starter">Starter - 899 ج</SelectItem>
-                          <SelectItem value="pro">Pro - 1499 ج</SelectItem>
-                          <SelectItem value="elite">Elite - 1999 ج</SelectItem>
+                          {PRICING_PLANS.map((plan) => (
+                            <SelectItem key={plan.name} value={plan.nameAr}>
+                              {plan.nameAr} - {plan.price} ج
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
