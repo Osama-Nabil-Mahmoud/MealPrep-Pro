@@ -62,7 +62,8 @@ export const MEALS_DATA: Meal[] = [
     macros: "P:18g, C:45g, F:12g", 
     tag: "شعبي مطور", 
     category: 'breakfast',
-    pexelsQuery: "healthy falafel egyptian"
+    pexelsQuery: "healthy falafel egyptian",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1skcg3Uvb0HFUKM1Qxq6k1MK0Q-WiNoQS"
   },
 
   // الغداء (Lunch)
