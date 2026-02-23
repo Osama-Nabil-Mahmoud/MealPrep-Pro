@@ -32,7 +32,7 @@ export default function Home() {
 
       <Features />
 
-      <section className="py-20 container mx-auto px-4">
+      <section id="ai-suggester" className="py-20 container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-headline mb-4">السر مش بس في الأكل، السر في النظام الذكي</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
