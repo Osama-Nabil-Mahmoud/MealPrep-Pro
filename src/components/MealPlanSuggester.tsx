@@ -3,7 +3,7 @@
 import * as React from "react"
 import { suggestMealPlan } from "@/ai/flows/ai-meal-plan-suggestion"
 import { Button } from "@/components/ui/button"
-import { Utensils, Loader2, Sparkles } from "lucide-react"
+import { Loader2, Sparkles, CheckCircle2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 
@@ -16,7 +16,18 @@ const availableMealsData = [
   { title: "جمبري بالثوم مع كينوا", calories: 380, macros: "P:28g, C:40g, F:12g", tag: "غداء/عشاء" },
   { title: "زبادي يوناني بالعسل والتوت", calories: 250, macros: "P:15g, C:25g, F:5g", tag: "إفطار" },
   { title: "بان كيك بروتين", calories: 320, macros: "P:25g, C:35g, F:8g", tag: "إفطار" },
-  { title: "فول وطعمية (صحية!)", calories: 350, macros: "P:18g, C:45g, F:12g", tag: "نباتي" }
+  { title: "فول وطعمية (صحية!)", calories: 350, macros: "P:18g, C:45g, F:12g", tag: "نباتي" },
+  { title: "دجاج كاري مع أرز بسمتي", calories: 460, macros: "P:32g, C:42g, F:14g", tag: "غداء/عشاء" },
+  { title: "سمك فيليه مشوي", calories: 310, macros: "P:30g, C:5g, F:12g", tag: "غداء/عشاء" },
+  { title: "تونة بالخضار والذرة", calories: 290, macros: "P:28g, C:15g, F:8g", tag: "غداء/عشاء" },
+  { title: "صدر ديك رومي مع فريك", calories: 430, macros: "P:38g, C:35g, F:10g", tag: "غداء/عشاء" },
+  { title: "فاصوليا بيضاء مع لحم", calories: 470, macros: "P:30g, C:38g, F:16g", tag: "غداء/عشاء" },
+  { title: "ملوخية مع دجاج مسلوق", calories: 390, macros: "P:35g, C:10g, F:12g", tag: "غداء/عشاء" },
+  { title: "أومليت بالخضار والجبن", calories: 280, macros: "P:20g, C:5g, F:18g", tag: "إفطار" },
+  { title: "شوفان بالموز والمكسرات", calories: 340, macros: "P:12g, C:50g, F:10g", tag: "إفطار" },
+  { title: "برجر لحم صحي (بدون خبز)", calories: 410, macros: "P:35g, C:5g, F:22g", tag: "كيتو" },
+  { title: "سلطة سيزر بالدجاج", calories: 320, macros: "P:28g, C:10g, F:15g", tag: "غداء/عشاء" },
+  { title: "كينوا بالخضار المشوية", calories: 300, macros: "P:10g, C:45g, F:8g", tag: "نباتي" }
 ]
 
 export function MealPlanSuggester() {
@@ -43,11 +54,11 @@ export function MealPlanSuggester() {
     <div className="bg-primary/5 rounded-3xl p-8 border border-primary/20 max-w-2xl mx-auto my-12">
       <div className="flex items-center gap-2 mb-6">
         <Sparkles className="text-primary" />
-        <h3 className="text-xl font-bold">اقتراح وجبات ذكي</h3>
+        <h3 className="text-xl font-bold">اقتراح وجبات ذكي (AI)</h3>
       </div>
       
       <p className="mb-6 text-sm text-muted-foreground">
-        مش عارف تختار إيه؟ سيب الذكاء الاصطناعي يقترح عليك منيو مناسب لهدفك.
+        اختار هدفك وسيب الذكاء الاصطناعي ينسق لك منيو من الـ 20 وجبة المتاحة عندنا.
       </p>
 
       <div className="flex flex-wrap gap-2 mb-8">
@@ -73,19 +84,22 @@ export function MealPlanSuggester() {
         disabled={loading} 
         className="w-full mb-8 font-bold"
       >
-        {loading ? <Loader2 className="animate-spin mr-2" /> : "اقترح لي وجبات"}
+        {loading ? <Loader2 className="animate-spin mr-2" /> : "اقترح لي خطة وجبات"}
       </Button>
 
       {suggestion && (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك:</p>
+          <p className="font-bold text-sm mb-2 text-primary">الخطة المقترحة لك بناءً على 20 وجبة:</p>
           {suggestion.map((meal, i) => (
-            <Card key={i} className="p-4 flex justify-between items-center bg-background">
-              <div>
-                <p className="font-bold text-sm">{meal.title}</p>
-                <p className="text-xs text-muted-foreground">{meal.macros}</p>
+            <Card key={i} className="p-4 flex justify-between items-center bg-background border-primary/10">
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="font-bold text-sm">{meal.title}</p>
+                  <p className="text-[10px] text-muted-foreground">{meal.macros}</p>
+                </div>
               </div>
-              <Badge variant="secondary">{meal.calories} سعرة</Badge>
+              <Badge variant="secondary" className="text-[10px]">{meal.calories} سعرة</Badge>
             </Card>
           ))}
         </div>
