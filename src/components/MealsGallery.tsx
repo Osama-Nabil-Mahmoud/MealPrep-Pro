@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -51,7 +52,7 @@ function MealCard({ meal }: { meal: Meal }) {
           </h3>
         </div>
         
-        {/* Macros Badges - Right aligned in RTL */}
+        {/* Macros Badges - Forced Right alignment in RTL */}
         <div className="flex flex-wrap gap-1.5 justify-start">
           {macroList.map((macro, idx) => (
             <Badge key={idx} variant="outline" className="text-[10px] font-medium py-0 px-2 bg-muted/30 border-muted-foreground/20">
@@ -110,7 +111,7 @@ export function MealsGallery() {
 
           {categories.map((cat) => (
             <TabsContent key={cat.value} value={cat.value} className="mt-0 focus-visible:outline-none animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 justify-items-stretch" dir="rtl">
                 {MEALS_DATA.filter(meal => meal.category === cat.value).map((meal) => (
                   <MealCard key={meal.id} meal={meal} />
                 ))}
