@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -35,7 +36,15 @@ const formSchema = z.object({
   goal: z.string().min(1, "اختار هدفك"),
 })
 
-export function TrialDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+export function TrialDrawer({ 
+  isOpen, 
+  onClose, 
+  selectedPlan 
+}: { 
+  isOpen: boolean, 
+  onClose: () => void,
+  selectedPlan?: string
+}) {
   const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,6 +56,17 @@ export function TrialDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () 
       goal: "",
     },
   })
+
+  // تحديث قيمة الباقة في الفورم عند تغيير الباقة المختارة من الخارج
+  React.useEffect(() => {
+    if (isOpen) {
+      if (selectedPlan) {
+        form.setValue("plan", selectedPlan);
+      } else {
+        form.setValue("plan", "");
+      }
+    }
+  }, [selectedPlan, isOpen, form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const whatsappNumber = "201210285859"
@@ -129,7 +149,7 @@ export function TrialDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base">الباقة المطلوبة</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger dir="rtl" className="h-12 text-lg">
                             <SelectValue placeholder="اختار باقتك" />

@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -16,14 +17,20 @@ import { Button } from "@/components/ui/button"
 export default function Home() {
   const [isTrialOpen, setIsTrialOpen] = React.useState(false)
   const [isConsultationOpen, setIsConsultationOpen] = React.useState(false)
+  const [selectedPlan, setSelectedPlan] = React.useState<string | undefined>(undefined)
+
+  const handleOpenTrial = (plan?: string) => {
+    setSelectedPlan(plan)
+    setIsTrialOpen(true)
+  }
 
   return (
     <main className="min-h-screen pb-20 md:pb-0">
-      <Navbar onTrialClick={() => setIsTrialOpen(true)} />
+      <Navbar onTrialClick={() => handleOpenTrial()} />
       
       <Hero 
-        onTrialClick={() => setIsTrialOpen(true)}
-        onSubscribeClick={() => setIsTrialOpen(true)}
+        onTrialClick={() => handleOpenTrial()}
+        onSubscribeClick={() => handleOpenTrial()}
         onConsultationClick={() => setIsConsultationOpen(true)}
       />
 
@@ -31,9 +38,9 @@ export default function Home() {
 
       <Features />
 
-      <Pricing onSubscribeClick={() => setIsTrialOpen(true)} />
+      <Pricing onSubscribeClick={(planName) => handleOpenTrial(planName)} />
 
-      <MealsGallery onSelect={() => setIsTrialOpen(true)} />
+      <MealsGallery onSelect={() => handleOpenTrial()} />
 
       <section id="testimonials" className="py-16 md:py-24">
         <div className="container">
@@ -71,7 +78,7 @@ export default function Home() {
           <Button 
             size="lg" 
             variant="secondary" 
-            onClick={() => setIsTrialOpen(true)}
+            onClick={() => handleOpenTrial()}
             className="text-lg md:text-xl px-8 md:px-12 h-14 font-bold w-full sm:w-auto"
           >
             ابدأ التجربة المخفضة الآن
@@ -85,12 +92,12 @@ export default function Home() {
 
       {/* Mobile Sticky CTA - Fixed at bottom */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-md border-t z-50 md:hidden flex gap-2">
-        <Button onClick={() => setIsTrialOpen(true)} className="flex-1 h-12 text-lg font-bold shadow-lg">
+        <Button onClick={() => handleOpenTrial()} className="flex-1 h-12 text-lg font-bold shadow-lg">
           ابدأ بخصم 20%
         </Button>
       </div>
 
-      <TrialDrawer isOpen={isTrialOpen} onClose={() => setIsTrialOpen(false)} />
+      <TrialDrawer isOpen={isTrialOpen} onClose={() => setIsTrialOpen(false)} selectedPlan={selectedPlan} />
       <ConsultationModal isOpen={isConsultationOpen} onClose={() => setIsConsultationOpen(false)} />
     </main>
   )
