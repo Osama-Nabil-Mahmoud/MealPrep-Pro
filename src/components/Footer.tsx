@@ -55,10 +55,6 @@ export function Footer() {
         
         <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© 2024 MealPrep Pro. جميع الحقوق محفوظة.</p>
-          <div className="flex gap-4">
-            <span className="text-sm text-muted-foreground">فيسبوك</span>
-            <span className="text-sm text-muted-foreground">إنستجرام</span>
-          </div>
         </div>
       </div>
     </footer>
